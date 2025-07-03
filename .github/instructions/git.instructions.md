@@ -13,6 +13,25 @@ il commit deve seguire lo standard per conventional commits. nel body del messag
    - se siamo sul branch principale (`main`) e ci sono file modificati, hiedi cosa fare  
    - se siamo su un branch `feature/*`, controlla la lista dei file modificati e chiedi cosa fare  
 
+## Merged branches
+
+Dopo aver completato una funzionalità, il branch deve essere unito nel branch principale (`main`) tramite una pull request. Assicurati di seguire questi passaggi:
+
+1. Assicurati che il branch `main` sia aggiornato:
+   ```bash
+   git checkout main
+   git pull origin main
+   ```
+2. Torna al tuo branch di funzionalità:
+   ```bash
+   git checkout feature/{{feature-name}}
+   ```
+3. Esegui il rebase del tuo branch di funzionalità sul branch `main`:
+   ```bash
+   git rebase main
+   ```
+4. Risolvi eventuali conflitti di merge.
+5. Crea una pull request per unire il tuo branch di funzionalità nel branch `main`.
 
 ## conventional commits
 
