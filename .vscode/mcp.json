@@ -32,7 +32,7 @@
         "@modelcontextprotocol/server-memory"
       ],
       "env": {
-        "MEMORY_FILE_PATH": "%localappdata%/memory/memory.json"
+        "MEMORY_FILE_PATH": "./memory/memory.json"
       }
       
     }
