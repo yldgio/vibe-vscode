@@ -33,10 +33,17 @@
       ],
       "env": {
         "MEMORY_FILE_PATH": "./memory/memory.json"
-      }
+      },
       
-    }
-    //,
+    },
+    // "browsermcp": {
+    //   "command": "npx",
+    //   "args": ["@browsermcp/mcp@latest"]
+    // }
+    "word-document-server": {
+      "command": "uvx",
+      "args": ["--from", "office-word-mcp-server", "word_mcp_server"]
+    }    //,
     // "taskmaster-ai": {
     //     "type": "stdio",
     //     "command": "npx",
