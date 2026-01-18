@@ -1,5 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { AssetRegistry } from "./services/asset-registry.js";
+import { createAssetRegistry, AssetRegistry } from "./services/asset-registry.js";
 import {
   listAssetsSchema,
   listAssetsToolName,
@@ -16,16 +16,9 @@ import {
 } from "./tools/index.js";
 
 /**
- * Create and configure the MCP server with all tools registered.
+ * Register all MCP tools with the server.
  */
-export function createMcpServer(repoRoot: string): McpServer {
-  const server = new McpServer({
-    name: "vibe-vscode",
-    version: "0.1.0",
-  });
-
-  const registry = new AssetRegistry(repoRoot);
-
+function registerTools(server: McpServer, registry: AssetRegistry): void {
   // Register list_assets tool
   server.tool(
     listAssetsToolName,
@@ -49,6 +42,23 @@ export function createMcpServer(repoRoot: string): McpServer {
     searchAssetsSchema,
     async (input) => handleSearchAssets(registry, input)
   );
+}
+
+/**
+ * Create and configure the MCP server with all tools registered.
+ * Discovers and loads all assets from the repository at startup.
+ */
+export async function createMcpServer(repoRoot: string): Promise<McpServer> {
+  const server = new McpServer({
+    name: "vibe-vscode",
+    version: "0.1.0",
+  });
+
+  // Initialize asset registry (discovers and loads all assets)
+  const registry = await createAssetRegistry(repoRoot);
+
+  // Register all tools
+  registerTools(server, registry);
 
   return server;
 }
