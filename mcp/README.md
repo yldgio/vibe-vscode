@@ -146,10 +146,10 @@ mcp/
 This is a **Phase 3** implementation with real filesystem asset discovery.
 
 The server discovers and loads all assets from:
-- `.github/prompts/*.prompt.md` (17 prompts)
-- `.github/agents/*.agent.md` (5 agents)
-- `.github/instructions/*.instructions.md` (8 instructions)
-- `.github/skills/*/SKILL.md` (7 skills)
+- `.github/prompts/*.prompt.md`
+- `.github/agents/*.agent.md`
+- `.github/instructions/*.instructions.md`
+- `.github/skills/*/SKILL.md`
 
 Assets are loaded once at startup. Changes to files require a server restart.
 

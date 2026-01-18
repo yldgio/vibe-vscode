@@ -167,13 +167,14 @@ export class AssetRegistry {
       assets = assets.filter((a) => a.type === input.type);
     }
 
-    // Search by keywords in name, path, title, and description
+    // Search by keywords in name, path, title, description, and tags
     const matches = assets.filter((asset) => {
       const searchableText = [
         asset.name,
         asset.path,
         asset.metadata?.title,
         asset.metadata?.description,
+        asset.metadata?.tags?.join(" "),
       ]
         .filter(Boolean)
         .join(" ")
