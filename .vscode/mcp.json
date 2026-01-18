@@ -43,6 +43,11 @@
     "word-document-server": {
       "command": "uvx",
       "args": ["--from", "office-word-mcp-server", "word_mcp_server"]
+    },
+    "vibe-vscode": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["tsx", "--tsconfig", "${workspaceFolder}/mcp/tsconfig.json", "${workspaceFolder}/mcp/src/index.ts"]
     }    //,
     // "taskmaster-ai": {
     //     "type": "stdio",
