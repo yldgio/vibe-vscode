@@ -16,6 +16,50 @@ Questo template include **agenti specializzati GitHub Copilot** per assistenza A
 
 Per dettagli, vedi `.github/agents/` e `MIGRATE_TO_AGENT.md`.
 
+## 🎓 Skills Specs e Utilizzo
+
+Questo template può essere arricchito con **skills specializzate** per Copilot e altri sistemi AI, progettate per accelerare workflow di sviluppo specifici. Di seguito alcune **curated skills** di riferimento da repository esterni che puoi studiare e adattare al tuo progetto.
+
+### GitHub Copilot Skills (awesome-copilot)
+
+La repository [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills) contiene skills progettate per integrazioni e task avanzati:
+
+- **[appinsights-instrumentation](https://github.com/github/awesome-copilot/tree/main/skills/appinsights-instrumentation)**: Aggiunge automaticamente Application Insights instrumentation al codice per monitoring e telemetria. Utile per progetti Azure che richiedono tracciamento performance e diagnostica.
+
+- **[azure-resource-visualizer](https://github.com/github/awesome-copilot/tree/main/skills/azure-resource-visualizer)**: Visualizza risorse Azure e dipendenze infrastrutturali. Ideale per comprendere architetture cloud complesse e pianificare deployment.
+
+- **[azure-role-selector](https://github.com/github/awesome-copilot/tree/main/skills/azure-role-selector)**: Assiste nella selezione e configurazione dei ruoli Azure RBAC appropriati. Migliora la sicurezza suggerendo permission set minimali secondo il principio di least privilege.
+
+### Anthropic Skills
+
+La repository [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills) offre skills per design, documentazione e building tools:
+
+- **[frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design)**: Assistenza nella progettazione di interfacce frontend moderne, con focus su UX/UI patterns, accessibilità e responsive design.
+
+- **[canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design)**: Skills specializzate per lavorare con HTML5 Canvas, grafica 2D e visualizzazioni interattive.
+
+- **[docx](https://github.com/anthropics/skills/tree/main/skills/docx)**: Generazione e manipolazione di documenti Microsoft Word (.docx) tramite AI, utile per report automatici e documentazione.
+
+- **[mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder)**: Costruzione di Model Context Protocol (MCP) servers per estendere le capacità degli AI agents con tool e data sources personalizzati.
+
+### Come Utilizzare le Skills
+
+1. **Esplora le repositories esterne** per comprendere struttura e implementazione delle skills
+2. **Adatta le skills al tuo contesto** seguendo i pattern del progetto e le best practices
+3. **Integra con gli agenti Copilot** esistenti (`@prd`, `@plan`, `@tdd`, `@devops`, `@lyra`)
+4. **Referenzia le skills nei prompt** per task specifici (es. "@devops usa pattern da azure-role-selector per configurare RBAC")
+5. **Mantieni coerenza** con gli standard di sicurezza, testing e accessibilità del template
+
+### Best Practices per Skills Integration
+
+- **Valida la sicurezza**: Controlla che le skills non introducano vulnerabilità
+- **Testa approfonditamente**: Ogni skill deve essere testata nel contesto del progetto
+- **Documenta l'utilizzo**: Aggiungi esempi pratici di come usare ogni skill
+- **Segui gli standard**: Applica le istruzioni di coding del template (`.github/instructions/`)
+- **Versionamento**: Traccia le skills utilizzate e le loro versioni per riproducibilità
+
+**Nota**: Le skills referenziate sono esempi esterni da studiare e adattare. Non sono incluse direttamente in questo template ma rappresentano pattern e approcci consigliati.
+
 ## ✨ Obiettivo del Progetto
 
 Il **Vibe Coding Template** è progettato per fornire una base solida e standardizzata per lo sviluppo software moderno. Il template include:
@@ -169,10 +213,36 @@ Questo template è progettato per essere esteso e migliorato:
 
 ## 📚 Risorse Aggiuntive
 
+### Standard e Documentazione
 - **[Conventional Commits](https://www.conventionalcommits.org/)** - Standard per messaggi di commit
 - **[WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/)** - Linee guida per accessibilità
 - **[TypeScript Handbook](https://www.typescriptlang.org/docs/)** - Documentazione TypeScript
 - **[.NET Guidelines](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/)** - Best practices .NET
+
+### Skills e AI Tools
+- **[GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills)** - Curated Copilot skills per Azure, monitoring e altro
+- **[Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)** - Skills per design, documentation e MCP builders
+
+---
+
+## 🌍 English Summary
+
+### Skills Specs and Usage
+
+This template can be enriched with **specialized skills** for Copilot and other AI systems, designed to accelerate specific development workflows. The following curated skills from external repositories can be studied and adapted to your project:
+
+**GitHub Copilot Skills** ([awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills)):
+- **appinsights-instrumentation**: Adds Application Insights instrumentation for monitoring and telemetry
+- **azure-resource-visualizer**: Visualizes Azure resources and infrastructure dependencies
+- **azure-role-selector**: Assists in selecting and configuring appropriate Azure RBAC roles
+
+**Anthropic Skills** ([anthropics/skills](https://github.com/anthropics/skills/tree/main/skills)):
+- **frontend-design**: Assistance in designing modern frontend interfaces with focus on UX/UI patterns
+- **canvas-design**: Specialized skills for working with HTML5 Canvas and interactive visualizations
+- **docx**: Generation and manipulation of Microsoft Word documents via AI
+- **mcp-builder**: Building Model Context Protocol (MCP) servers to extend AI agents capabilities
+
+For detailed documentation on how to use and integrate these skills, refer to the "Skills Specs e Utilizzo" section above.
 
 ---
 
