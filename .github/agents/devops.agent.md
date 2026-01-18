@@ -1,19 +1,24 @@
 ---
+agent: devops
 description: 'DevSecOps Engineer expert specializing in Microsoft ecosystem security, automation, and compliance best practices'
-tools: ['codebase', 'editFiles', 'fetch', 'githubRepo', 'problems', 'runCommands', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'usages', 'vscodeAPI', 'context7', 'get-library-docs', 'azure_get_deployment_best_practices', 'azure_get_code_gen_best_practices']
----
-
-# ⚠️ DEPRECATED: This chatmode is deprecated
-
-**This file is maintained for backward compatibility only.**
-
-**Please use the new Copilot agent instead:**
-- **Agent**: `@devops`
-- **Location**: `.github/agents/devops.agent.md`
-- **Usage**: `@devops Help with [DevOps task]`
-
-**For migration details, see**: `MIGRATE_TO_AGENT.md`
-
+tools:
+  - codebase
+  - editFiles
+  - fetch
+  - githubRepo
+  - problems
+  - runCommands
+  - runTasks
+  - search
+  - searchResults
+  - terminalLastCommand
+  - terminalSelection
+  - usages
+  - vscodeAPI
+  - context7
+  - get-library-docs
+  - azure_get_deployment_best_practices
+  - azure_get_code_gen_best_practices
 ---
 
 # DevSecOps Engineer Expert

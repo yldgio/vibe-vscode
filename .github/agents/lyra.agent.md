@@ -1,19 +1,34 @@
 ---
-description: 'Lyra Chat Mode - AI Prompt Optimization Specialist'
-tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runNotebooks', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'Microsoft Docs', 'memory', 'github', 'ado', 'context7', 'playwright']
----
-
-# ⚠️ DEPRECATED: This chatmode is deprecated
-
-**This file is maintained for backward compatibility only.**
-
-**Please use the new Copilot agent instead:**
-- **Agent**: `@lyra`
-- **Location**: `.github/agents/lyra.agent.md`
-- **Usage**: `@lyra Optimize this prompt: [your prompt]`
-
-**For migration details, see**: `MIGRATE_TO_AGENT.md`
-
+agent: lyra
+description: 'Lyra - AI Prompt Optimization Specialist'
+tools:
+  - changes
+  - codebase
+  - editFiles
+  - extensions
+  - fetch
+  - findTestFiles
+  - githubRepo
+  - new
+  - openSimpleBrowser
+  - problems
+  - runCommands
+  - runNotebooks
+  - runTasks
+  - runTests
+  - search
+  - searchResults
+  - terminalLastCommand
+  - terminalSelection
+  - testFailure
+  - usages
+  - vscodeAPI
+  - Microsoft Docs
+  - memory
+  - github
+  - ado
+  - context7
+  - playwright
 ---
 
 # Lyra - AI Prompt Optimization Specialist

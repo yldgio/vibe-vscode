@@ -1,8 +1,18 @@
 # 🚀 AI Dev Tasks 
 
-Welcome to **AI Dev Tasks**! This repository provides a collection of `.md` files designed to supercharge your feature development workflow vscode editor. By leveraging these commands, you can systematically approach building features, from ideation to implementation, with built-in checkpoints for verification.
+Welcome to **AI Dev Tasks**! This repository provides a collection of **Copilot agents** and prompt files designed to supercharge your feature development workflow in VS Code. By leveraging these specialized agents, you can systematically approach building features, from ideation to implementation, with built-in checkpoints for verification.
 
 Stop wrestling with monolithic AI requests and start guiding your AI collaborator step-by-step!
+
+## 🆕 Agents vs Prompts: Understanding the Difference
+
+This repository now uses **GitHub Copilot agents** as the primary system for AI assistance:
+
+- **Copilot Agents** (`.github/agents/*.agent.md`) - Modern, specialized AI assistants that integrate directly with GitHub Copilot. Use these with `@agent-name` syntax.
+- **Prompt Files** (`.github/prompts/*.prompt.md`) - Task-specific prompts referenced with `#filename` syntax.
+- **Legacy Chatmodes** (`.github/chatmodes/*.chatmode.md`) - **DEPRECATED**. See `MIGRATE_TO_AGENT.md` for migration guidance.
+
+**For all new workflows, use Copilot agents (`@agent-name`) instead of legacy chatmodes.**
 
 ## ✨ The Core Idea
 
@@ -22,28 +32,38 @@ Here's the step-by-step process using the `.md` files in this repository:
 
 First, lay out the blueprint for your feature. A PRD clarifies what you're building, for whom, and why.
 
-You can create a lightweight PRD directly within your editor (VSCode):
+You can create a lightweight PRD directly within your editor (VS Code) using the **PRD agent**:
 
-1.  Ensure you have the `create-prd.prompt.md` file from this repository accessible.
-2.  In VScode Agent chat, initiate PRD creation:
+**Option 1: Using the PRD Agent (Recommended)**
+```
+@prd I want to build [Describe your feature in detail]
+Reference these files: #file1.py #file2.ts
+```
 
-    ```
-    Use #create-prd.prompt.md
-    Here's the feature I want to build: [Describe your feature in detail]
-    Reference these files to help you: [Optional: #file1.py #file2.ts]
-    ```
+**Option 2: Using the Prompt File (Legacy)**
+```
+Use #create-prd.prompt.md
+Here's the feature I want to build: [Describe your feature in detail]
+Reference these files to help you: [Optional: #file1.py #file2.ts]
+```
+
+The **@prd** agent will guide you through creating a comprehensive PRD by asking clarifying questions and ensuring all necessary sections are covered.
 
 ### 2️⃣ Generate Your Task List from the PRD
 
-With your PRD drafted (e.g., `MyFeature-PRD.md`), the next step is to generate a detailed, step-by-step implementation plan for your AI Developer.
+With your PRD drafted (e.g., `MyFeature-PRD.md`), the next step is to generate a detailed, step-by-step implementation plan.
 
-1.  Ensure you have `generate-tasks.prompt.md` accessible.
-2.  In Agent chat, use the PRD to create tasks:
+**Option 1: Using the Plan Agent (Recommended)**
+```
+@plan Create an implementation plan based on #MyFeature-PRD.md
+```
 
-    ```
-    Now take #MyFeature-PRD.md and create tasks using #generate-tasks.prompt.md
-    ```
-    *(Note: Replace `#MyFeature-PRD.md` with the actual filename of the PRD you generated in step 1.)*
+**Option 2: Using the Prompt File (Legacy)**
+```
+Take #MyFeature-PRD.md and create tasks using #generate-tasks.prompt.md
+```
+
+The **@plan** agent will analyze your PRD and create a structured implementation plan with clear steps and testing requirements.
 
 
 ### 3️⃣ Examine Your Task List
@@ -52,17 +72,21 @@ You'll now have a well-structured task list, often with tasks and sub-tasks, rea
 
 ### 4️⃣ Instruct the AI to Work Through Tasks (and Mark Completion)
 
-To ensure methodical progress and allow for verification, we'll use `process-task-list.prompt.md`. This command instructs the AI to focus on one task at a time and wait for your go-ahead before moving to the next.
+To ensure methodical progress and allow for verification, use the TDD agent or the task list prompt to work through tasks one at a time.
 
-1.  Create or ensure you have the `process-task-list.prompt.md` file accessible.
-2.  In Cursor's Agent chat, tell the AI to start with the first task (e.g., `1.1`):
+**Option 1: Using the TDD Agent (Recommended for code features)**
+```
+@tdd Start implementing task 1.1 from #task-list.md
+```
 
-    ```
-    Please start on task 1.1 and use #process-task-list.prompt.md
-    ```
-    *(Important: You only need to reference `#process-task-list.prompt.md` for the *first* task. The instructions within it guide the AI for subsequent tasks.)*
+**Option 2: Using the Process Task List Prompt**
+```
+Please start on task 1.1 and use #process-task-list.prompt.md
+```
 
-    The AI will attempt the task and then prompt you to review.
+The **@tdd** agent enforces the Red-Green-Refactor cycle, ensuring tests are written before implementation. For non-code tasks, use the prompt file approach.
+
+The AI will attempt the task and then prompt you to review before proceeding.
 
 ### 5️⃣ Review, Approve, and Progress ✅
 
@@ -74,11 +98,31 @@ You'll see a satisfying list of completed items grow, providing a clear visual o
 
 While it's not always perfect, this method has proven to be a very reliable way to build out larger features with AI assistance.
 
-## 🗂️ Files in this Repository
+## 🗂️ Available Agents and Files
 
-*   **`create-prd.prompt.md`**: Guides the AI in generating a Product Requirement Document for your feature.
-*   **`generate-tasks-from-prd.prompt.md`**: Takes a PRD markdown file as input and helps the AI break it down into a detailed, step-by-step implementation task list.
-*   **`process-task-list.prompt.md`**: Instructs the AI on how to process the generated task list, tackling one task at a time and waiting for your approval before proceeding. (This file also contains logic for the AI to mark tasks as complete).
+### Copilot Agents (Current Standard)
+Located in `.github/agents/`:
+
+*   **`@prd`** (prd.agent.md): Guides you through creating comprehensive Product Requirement Documents
+*   **`@plan`** (plan.agent.md): Generates implementation plans for features or refactoring tasks
+*   **@tdd** (tdd.agent.md): Enforces Test-Driven Development with the Red-Green-Refactor cycle
+*   **@devops** (devops.agent.md): DevSecOps expert for Microsoft ecosystem, Git, and deployment strategies
+*   **@lyra** (lyra.agent.md): AI prompt optimization specialist for improving AI interactions
+
+### Prompt Files (Task-Specific)
+Located in `.github/prompts/`:
+
+*   **`create-prd.prompt.md`**: Template for generating Product Requirement Documents (legacy - use @prd instead)
+*   **`generate-tasks.prompt.md`**: Breaks down PRDs into detailed task lists (legacy - use @plan instead)
+*   **`process-task-list.prompt.md`**: Guides step-by-step task completion with checkpoints
+*   **`git.prompt.md`**: Git workflow and best practices guidance
+*   **`devops.prompt.md`**: DevOps and deployment strategies
+*   **Additional specialized prompts**: See `.github/prompts/` for the complete list
+
+### Legacy Chatmodes (Deprecated)
+Located in `.github/chatmodes/`:
+
+⚠️ **These are deprecated.** Please use the equivalent Copilot agents instead. See `MIGRATE_TO_AGENT.md` for details.
 
 ## 🌟 Benefits
 
@@ -96,11 +140,35 @@ While it's not always perfect, this method has proven to be a very reliable way 
     *   Feel free to modify the prompts within the `.md` files to better suit your specific needs or coding style.
     *   If the AI struggles with a task, try rephrasing your initial feature description or breaking down tasks even further.
 
+## 🔄 Migration from Chatmodes to Agents
+
+If you've been using the legacy chatmode system, here's how to migrate:
+
+### Quick Reference
+
+| Old Chatmode | New Agent | How to Use |
+|-------------|-----------|------------|
+| `#PRD.chatmode.md` | `@prd` | `@prd Create a PRD for [feature]` |
+| `#TDD.chatmode.md` | `@tdd` | `@tdd Implement [feature] using TDD` |
+| `#Plan.chatmode.md` | `@plan` | `@plan Create plan for #MyFeature-PRD.md` |
+| `#devops.chatmode.md` | `@devops` | `@devops Help with Git workflow` |
+| `#lyra.chatmode.md` | `@lyra` | `@lyra Optimize this prompt: [prompt]` |
+
+### Benefits of Agents
+
+- **Native Copilot Integration**: Better integration with GitHub Copilot ecosystem
+- **Cleaner Syntax**: Use `@agent-name` instead of `#file.chatmode.md`
+- **Consistent Format**: Standardized frontmatter and structure
+- **Better Tooling**: Enhanced support in VS Code and GitHub
+
+For complete migration details, see **`MIGRATE_TO_AGENT.md`**.
+
 ## 💡 Tips for Success
 
 *   **Be Specific:** The more context and clear instructions you provide (both in your initial feature description and any clarifications), the better the AI's output will be.
-*   **MAX Mode for PRDs:** As mentioned, using MAX mode in Cursor for PRD creation (`create-prd.prompt.md`) can yield more thorough and higher-quality results if your budget supports it.
-*   **Correct File Tagging:** Always ensure you're accurately tagging the PRD filename (e.g., `#MyFeature-PRD.md`) when generating tasks.
+*   **Use Agents First**: Prefer `@agent-name` syntax over legacy prompt files for better integration.
+*   **Combine Approaches**: Use agents for structured workflows and prompt files for specific tasks.
+*   **Correct File Tagging:** Always ensure you're accurately tagging files (e.g., `#MyFeature-PRD.md`) when needed.
 *   **Patience and Iteration:** AI is a powerful tool, but it's not magic. Be prepared to guide, correct, and iterate. This workflow is designed to make that iteration process smoother.
 
 ## 🤝 Contributing
