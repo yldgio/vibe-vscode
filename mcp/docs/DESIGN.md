@@ -20,7 +20,7 @@
 
 ## Overview
 
-This MCP server exposes the repository's AI customization assets (prompts, agents, instructions, skills, and chatmodes) to MCP-compatible clients. It is inspired by Microsoft's [awesome-copilot](https://github.com/microsoft/mcp-dotnet-samples/tree/main/awesome-copilot) implementation.
+This MCP server exposes the repository's AI customization assets (prompts, agents, instructions, and skills) to MCP-compatible clients. It is inspired by Microsoft's [awesome-copilot](https://github.com/microsoft/mcp-dotnet-samples/tree/main/awesome-copilot) implementation.
 
 ### Goals
 
@@ -71,8 +71,7 @@ Current repository assets to be exposed:
 | Agents | 5 | `.github/agents/` | `*.agent.md` |
 | Instructions | 8 | `.github/instructions/` | `*.instructions.md` |
 | Skills | 7 | `.github/skills/*/` | `SKILL.md` |
-| Chat Modes | 5 | `.github/chatmodes/` | `*.chatmode.md` |
-| **Total** | **42** | | |
+| **Total** | **37** | | |
 
 ### Detailed Asset List
 
@@ -131,16 +130,6 @@ Current repository assets to be exposed:
 ├── docx/SKILL.md
 ├── frontend-design/SKILL.md
 └── mcp-builder/SKILL.md
-```
-
-#### Chat Modes (5)
-```text
-.github/chatmodes/
-├── devops.chatmode.md
-├── lyra.chatmode.md
-├── Plan.chatmode.md
-├── PRD.chatmode.md
-└── TDD.chatmode.md
 ```
 
 ### Localized Assets
@@ -222,9 +211,9 @@ Lists all repository assets with optional filtering.
 {
   "type": "object",
   "properties": {
-    "type": {
+"type": {
       "type": "string",
-      "enum": ["prompt", "agent", "instruction", "skill", "chatmode"],
+      "enum": ["prompt", "agent", "instruction", "skill"],
       "description": "Filter by asset type"
     },
     "locale": {
@@ -342,9 +331,9 @@ Searches assets by keywords.
       "type": "string",
       "description": "Search keywords (space-separated)"
     },
-    "type": {
+"type": {
       "type": "string",
-      "enum": ["prompt", "agent", "instruction", "skill", "chatmode"],
+      "enum": ["prompt", "agent", "instruction", "skill"],
       "description": "Filter by asset type"
     }
   },
@@ -407,7 +396,7 @@ Searches assets by keywords.
 ### TypeScript Interface
 
 ```typescript
-type AssetType = "prompt" | "agent" | "instruction" | "skill" | "chatmode";
+type AssetType = "prompt" | "agent" | "instruction" | "skill";
 
 interface Asset {
   /** Stable ID: "{type}:{relativePath}" */
@@ -458,7 +447,6 @@ Asset IDs follow the pattern `{type}:{relativePath}`:
 | Agent | Filename without `.agent.md` | `devops.agent.md` → `devops` |
 | Instruction | Filename without `.instructions.md` | `git.instructions.md` → `git` |
 | Skill | Parent folder name | `mcp-builder/SKILL.md` → `mcp-builder` |
-| ChatMode | Filename without `.chatmode.md` | `lyra.chatmode.md` → `lyra` |
 
 ### Locale Extraction
 
@@ -586,7 +574,7 @@ This design is inspired by Microsoft's [awesome-copilot](https://github.com/micr
 |--------|-----------------|-------------|
 | Runtime | .NET 9 | Node.js 20+ |
 | Data Source | Remote GitHub API | Local filesystem |
-| Asset Types | 4 (chatmodes, instructions, prompts, agents) | 5 (+ skills) |
+| Asset Types | 4 (instructions, prompts, agents, skills) | 4 |
 | Caching | In-memory from JSON | In-memory from filesystem |
 
 ---

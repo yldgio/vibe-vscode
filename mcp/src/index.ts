@@ -14,7 +14,7 @@ async function main(): Promise<void> {
   console.error(`  Repo root: ${config.repoRoot}`);
   console.error(`  Transport: ${config.http ? `HTTP (port ${config.port})` : "stdio"}`);
 
-  const server = createMcpServer(config.repoRoot);
+  const server = await createMcpServer(config.repoRoot);
 
   if (config.http) {
     // HTTP/SSE transport

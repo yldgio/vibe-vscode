@@ -1,6 +1,6 @@
 # vibe-vscode MCP Server
 
-An MCP (Model Context Protocol) server that exposes the vibe-vscode repository's AI customization assets (prompts, agents, instructions, skills, and chatmodes) to MCP-compatible clients.
+An MCP (Model Context Protocol) server that exposes the vibe-vscode repository's AI customization assets (prompts, agents, instructions, and skills) to MCP-compatible clients.
 
 ## Quick Start
 
@@ -143,9 +143,15 @@ mcp/
 
 ## Phase Status
 
-This is a **Phase 2** implementation with stub data. Real asset loading from the filesystem will be implemented in Phase 3.
+This is a **Phase 3** implementation with real filesystem asset discovery.
 
-Currently, the tools return mock data to validate transport and client connectivity.
+The server discovers and loads all assets from:
+- `.github/prompts/*.prompt.md`
+- `.github/agents/*.agent.md`
+- `.github/instructions/*.instructions.md`
+- `.github/skills/*/SKILL.md`
+
+Assets are loaded once at startup. Changes to files require a server restart.
 
 ## License
 

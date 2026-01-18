@@ -6,7 +6,7 @@ import type { ListAssetsInput, AssetType } from "../services/types.js";
  * Zod schema for list_assets input.
  */
 export const listAssetsSchema = {
-  type: z.enum(["prompt", "agent", "instruction", "skill", "chatmode"]).optional()
+  type: z.enum(["prompt", "agent", "instruction", "skill"]).optional()
     .describe("Filter by asset type"),
   locale: z.string().optional()
     .describe("Filter by locale (e.g., 'it' for Italian)"),

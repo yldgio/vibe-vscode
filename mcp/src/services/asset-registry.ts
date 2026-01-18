@@ -9,62 +9,75 @@ import type {
   SearchAssetsInput,
   SearchAssetsOutput,
 } from "./types.js";
+import { discoverAssets } from "./file-discovery.js";
+import { loadAssets } from "./asset-loader.js";
 
 /**
- * Stub asset registry for Phase 2.
- * Returns mock data to validate transport and client connectivity.
- * Real implementation will be added in Phase 3.
+ * Asset registry that discovers and manages repository assets.
+ * Assets are loaded once at initialization and stored in memory.
+ * 
+ * Use `createAssetRegistry()` to create an initialized instance.
+ * Direct instantiation requires calling `initialize()` before use.
  */
 export class AssetRegistry {
   private readonly repoRoot: string;
-  private readonly stubAssets: Asset[];
+  private assets: Map<string, Asset> = new Map();
+  private initialized = false;
 
   constructor(repoRoot: string) {
     this.repoRoot = repoRoot;
+  }
 
-    // Phase 2 stub data - will be replaced with real discovery in Phase 3
-    this.stubAssets = [
-      {
-        id: "prompt:.github/prompts/code-review.prompt.md",
-        type: "prompt",
-        name: "code-review",
-        path: ".github/prompts/code-review.prompt.md",
-        content: "# Code Review\n\nThis is stub content for Phase 2 testing.\n\nReal content will be loaded from the filesystem in Phase 3.",
-        encoding: "utf-8",
-      },
-      {
-        id: "agent:.github/agents/devops.agent.md",
-        type: "agent",
-        name: "devops",
-        path: ".github/agents/devops.agent.md",
-        content: "# DevOps Agent\n\nThis is stub content for Phase 2 testing.\n\nReal content will be loaded from the filesystem in Phase 3.",
-        encoding: "utf-8",
-      },
-      {
-        id: "instruction:.github/instructions/git.instructions.md",
-        type: "instruction",
-        name: "git",
-        path: ".github/instructions/git.instructions.md",
-        content: "# Git Instructions\n\nThis is stub content for Phase 2 testing.\n\nReal content will be loaded from the filesystem in Phase 3.",
-        encoding: "utf-8",
-      },
-      {
-        id: "skill:.github/skills/mcp-builder/SKILL.md",
-        type: "skill",
-        name: "mcp-builder",
-        path: ".github/skills/mcp-builder/SKILL.md",
-        content: "# MCP Builder Skill\n\nThis is stub content for Phase 2 testing.\n\nReal content will be loaded from the filesystem in Phase 3.",
-        encoding: "utf-8",
-      },
-      {
-        id: "chatmode:.github/chatmodes/lyra.chatmode.md",
-        type: "chatmode",
-        name: "lyra",
-        path: ".github/chatmodes/lyra.chatmode.md",
-        content: "# Lyra Chat Mode\n\nThis is stub content for Phase 2 testing.\n\nReal content will be loaded from the filesystem in Phase 3.",
-        encoding: "utf-8",
-      },
-    ];
+  /**
+   * Ensure the registry is initialized before use.
+   * Throws an error if called before initialize().
+   */
+  private ensureInitialized(): void {
+    if (!this.initialized) {
+      throw new Error("AssetRegistry not initialized. Call initialize() first or use createAssetRegistry().");
+    }
+  }
+
+  /**
+   * Initialize the registry by discovering and loading all assets.
+   * Must be called before using other methods.
+   */
+  async initialize(): Promise<void> {
+    if (this.initialized) {
+      return;
+    }
+
+    console.error(`Discovering assets in ${this.repoRoot}...`);
+    
+    const discoveredFiles = await discoverAssets(this.repoRoot);
+    console.error(`Found ${discoveredFiles.length} asset files`);
+    
+    const loadedAssets = await loadAssets(discoveredFiles);
+    console.error(`Loaded ${loadedAssets.length} assets`);
+    
+    // Store assets in a Map for fast lookup by ID
+    for (const asset of loadedAssets) {
+      this.assets.set(asset.id, asset);
+    }
+    
+    this.initialized = true;
+    
+    // Log summary by type
+    const summary = this.getAssetSummaryByType();
+    for (const [type, count] of Object.entries(summary)) {
+      console.error(`  ${type}: ${count}`);
+    }
+  }
+
+  /**
+   * Get count of assets by type.
+   */
+  private getAssetSummaryByType(): Record<string, number> {
+    const summary: Record<string, number> = {};
+    for (const asset of this.assets.values()) {
+      summary[asset.type] = (summary[asset.type] || 0) + 1;
+    }
+    return summary;
   }
 
   /**
@@ -76,9 +89,12 @@ export class AssetRegistry {
 
   /**
    * List assets with optional filtering.
+   * @throws Error if registry is not initialized
    */
   listAssets(input: ListAssetsInput): ListAssetsOutput {
-    let assets = this.stubAssets;
+    this.ensureInitialized();
+    
+    let assets = Array.from(this.assets.values());
 
     // Filter by type if specified
     if (input.type) {
@@ -107,9 +123,12 @@ export class AssetRegistry {
 
   /**
    * Get a single asset by ID.
+   * @throws Error if registry is not initialized
    */
   getAsset(input: GetAssetInput): GetAssetOutput | null {
-    const asset = this.stubAssets.find((a) => a.id === input.id);
+    this.ensureInitialized();
+    
+    const asset = this.assets.get(input.id);
 
     if (!asset) {
       return null;
@@ -128,25 +147,41 @@ export class AssetRegistry {
 
   /**
    * Search assets by keywords.
+   * Matches against name, path, title, and description.
+   * All keywords must match (AND logic).
+   * @throws Error if registry is not initialized
    */
   searchAssets(input: SearchAssetsInput): SearchAssetsOutput {
+    this.ensureInitialized();
+    
     const keywords = input.keywords.toLowerCase().split(/\s+/).filter(Boolean);
 
     if (keywords.length === 0) {
       return { assets: [], count: 0 };
     }
 
-    let assets = this.stubAssets;
+    let assets = Array.from(this.assets.values());
 
     // Filter by type if specified
     if (input.type) {
       assets = assets.filter((a) => a.type === input.type);
     }
 
-    // Search by keywords in name, path, and content
+    // Search by keywords in name, path, title, description, and tags
     const matches = assets.filter((asset) => {
-      const searchText = `${asset.name} ${asset.path} ${asset.content}`.toLowerCase();
-      return keywords.some((keyword) => searchText.includes(keyword));
+      const searchableText = [
+        asset.name,
+        asset.path,
+        asset.metadata?.title,
+        asset.metadata?.description,
+        asset.metadata?.tags?.join(" "),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      // All keywords must match
+      return keywords.every((keyword) => searchableText.includes(keyword));
     });
 
     const summaries: AssetSummary[] = matches.map((a) => ({
@@ -163,4 +198,14 @@ export class AssetRegistry {
       count: summaries.length,
     };
   }
+}
+
+/**
+ * Create and initialize an AssetRegistry.
+ * This is the preferred way to create a registry.
+ */
+export async function createAssetRegistry(repoRoot: string): Promise<AssetRegistry> {
+  const registry = new AssetRegistry(repoRoot);
+  await registry.initialize();
+  return registry;
 }

@@ -8,7 +8,7 @@ import type { SearchAssetsInput, AssetType } from "../services/types.js";
 export const searchAssetsSchema = {
   keywords: z.string()
     .describe("Search keywords (space-separated)"),
-  type: z.enum(["prompt", "agent", "instruction", "skill", "chatmode"]).optional()
+  type: z.enum(["prompt", "agent", "instruction", "skill"]).optional()
     .describe("Filter by asset type"),
 };
 
