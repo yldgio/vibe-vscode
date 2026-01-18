@@ -40,13 +40,25 @@ export function createHttpTransport(port: number): HttpTransport {
           return;
         }
 
-        sseTransport = new SSEServerTransport("/message", res);
+        try {
+          sseTransport = new SSEServerTransport("/message", res);
+          
+          // Start the SSE transport to send initial endpoint event
+          await sseTransport.start();
 
-        // Clean up transport reference when connection closes
-        res.on("close", () => {
+          // Clean up transport reference when connection closes
+          res.on("close", () => {
+            sseTransport = null;
+            console.error("SSE client disconnected");
+          });
+        } catch (error) {
+          console.error("Failed to start SSE transport:", error);
           sseTransport = null;
-          console.error("SSE client disconnected");
-        });
+          if (!res.headersSent) {
+            res.writeHead(500, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Failed to establish SSE connection" }));
+          }
+        }
 
         return;
       }
