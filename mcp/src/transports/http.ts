@@ -21,51 +21,69 @@ export function createHttpTransport(port: number): HttpTransport {
   let sseTransport: SSEServerTransport | null = null;
 
   const httpServer = createServer(async (req: IncomingMessage, res: ServerResponse) => {
-    const url = new URL(req.url || "/", `http://localhost:${port}`);
+    try {
+      const url = new URL(req.url || "/", `http://localhost:${port}`);
 
-    // Health check endpoint
-    if (url.pathname === "/health" && req.method === "GET") {
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ status: "ok" }));
-      return;
-    }
-
-    // SSE endpoint for MCP connections
-    if (url.pathname === "/sse" && req.method === "GET") {
-      // Phase 2: Single connection only - reject if already connected
-      if (sseTransport) {
-        res.writeHead(409, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "SSE connection already active" }));
+      // Health check endpoint
+      if (url.pathname === "/health" && req.method === "GET") {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ status: "ok" }));
         return;
       }
 
-      sseTransport = new SSEServerTransport("/message", res);
+      // SSE endpoint for MCP connections
+      if (url.pathname === "/sse" && req.method === "GET") {
+        // Phase 2: Single connection only - reject if already connected
+        if (sseTransport) {
+          res.writeHead(409, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "SSE connection already active" }));
+          return;
+        }
 
-      // Clean up transport reference when connection closes
-      res.on("close", () => {
-        sseTransport = null;
-        console.error("SSE client disconnected");
-      });
+        sseTransport = new SSEServerTransport("/message", res);
 
-      return;
-    }
+        // Clean up transport reference when connection closes
+        res.on("close", () => {
+          sseTransport = null;
+          console.error("SSE client disconnected");
+        });
 
-    // Message endpoint for client-to-server messages
-    if (url.pathname === "/message" && req.method === "POST") {
-      if (!sseTransport) {
-        res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "No active SSE connection" }));
         return;
       }
 
-      // Let the SSE transport handle the message
-      await sseTransport.handlePostMessage(req, res);
-      return;
-    }
+      // Message endpoint for client-to-server messages
+      if (url.pathname === "/message" && req.method === "POST") {
+        if (!sseTransport) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "No active SSE connection" }));
+          return;
+        }
 
-    // 404 for unknown routes
-    res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: "Not found" }));
+        // Let the SSE transport handle the message
+        try {
+          await sseTransport.handlePostMessage(req, res);
+        } catch (error) {
+          console.error("Error handling POST message:", error);
+          if (!res.headersSent) {
+            res.writeHead(500, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Internal server error" }));
+          }
+        }
+        return;
+      }
+
+      // 404 for unknown routes
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not found" }));
+    } catch (error) {
+      console.error("Unhandled error in HTTP request handler:", error);
+      if (!res.headersSent) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Internal server error" }));
+      } else if (!res.writableEnded) {
+        res.end();
+      }
+    }
   });
 
   return {
