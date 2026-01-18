@@ -63,6 +63,7 @@ export function parseArgs(args: string[]): ServerConfig {
       case "-h":
         printHelp();
         process.exit(0);
+        break; // unreachable but satisfies linter
 
       default:
         if (arg?.startsWith("-")) {
@@ -71,6 +72,11 @@ export function parseArgs(args: string[]): ServerConfig {
           process.exit(1);
         }
     }
+  }
+
+  // Warn if --port is used without --http
+  if (config.port !== defaults.port && !config.http) {
+    console.error("Warning: --port is ignored without --http");
   }
 
   return config;

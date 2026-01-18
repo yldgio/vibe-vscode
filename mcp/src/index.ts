@@ -22,27 +22,54 @@ async function main(): Promise<void> {
     await httpTransport.start();
 
     // Handle graceful shutdown
-    process.on("SIGINT", async () => {
+    const shutdown = async (): Promise<void> => {
       console.error("\nShutting down...");
-      await httpTransport.close();
-      process.exit(0);
-    });
-
-    process.on("SIGTERM", async () => {
-      console.error("\nShutting down...");
-      await httpTransport.close();
-      process.exit(0);
-    });
-
-    // Wait for SSE connection and connect server
-    // Note: In a real implementation, we'd need to handle multiple connections
-    // For Phase 2, we're keeping it simple with a single connection model
-    const checkConnection = setInterval(async () => {
-      if (httpTransport.transport) {
-        clearInterval(checkConnection);
-        await server.connect(httpTransport.transport);
+      try {
+        await httpTransport.close();
+      } catch (error) {
+        console.error("Error during shutdown:", error);
       }
-    }, 100);
+      process.exit(0);
+    };
+
+    process.on("SIGINT", () => void shutdown());
+    process.on("SIGTERM", () => void shutdown());
+
+    // Wait for SSE connection and connect server with timeout
+    const maxWaitMs = 300_000; // 5 minutes - long timeout for development
+    const pollIntervalMs = 100;
+
+    const waitForConnection = (): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        const startTime = Date.now();
+
+        const check = (): void => {
+          if (httpTransport.transport) {
+            resolve();
+            return;
+          }
+
+          if (Date.now() - startTime >= maxWaitMs) {
+            reject(new Error("Timeout waiting for SSE connection"));
+            return;
+          }
+
+          setTimeout(check, pollIntervalMs);
+        };
+
+        check();
+      });
+    };
+
+    // Don't block - just log when connection is established
+    waitForConnection()
+      .then(async () => {
+        console.error("SSE client connected");
+        await server.connect(httpTransport.transport!);
+      })
+      .catch((error) => {
+        console.error("Connection error:", error.message);
+      });
   } else {
     // stdio transport (default)
     const transport = createStdioTransport();

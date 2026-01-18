@@ -15,6 +15,7 @@ export interface HttpTransport {
 /**
  * Create an HTTP transport for the MCP server.
  * Uses Server-Sent Events (SSE) for the MCP protocol.
+ * Note: Phase 2 implementation supports single connection only.
  */
 export function createHttpTransport(port: number): HttpTransport {
   let sseTransport: SSEServerTransport | null = null;
@@ -31,7 +32,21 @@ export function createHttpTransport(port: number): HttpTransport {
 
     // SSE endpoint for MCP connections
     if (url.pathname === "/sse" && req.method === "GET") {
+      // Phase 2: Single connection only - reject if already connected
+      if (sseTransport) {
+        res.writeHead(409, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "SSE connection already active" }));
+        return;
+      }
+
       sseTransport = new SSEServerTransport("/message", res);
+
+      // Clean up transport reference when connection closes
+      res.on("close", () => {
+        sseTransport = null;
+        console.error("SSE client disconnected");
+      });
+
       return;
     }
 
