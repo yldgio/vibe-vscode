@@ -47,7 +47,7 @@
     "vibe-vscode": {
       "type": "stdio",
       "command": "npx",
-      "args": ["tsx", "--project", "${workspaceFolder}/mcp/tsconfig.json", "${workspaceFolder}/mcp/src/index.ts"]
+      "args": ["tsx", "--tsconfig", "${workspaceFolder}/mcp/tsconfig.json", "${workspaceFolder}/mcp/src/index.ts"]
     }    //,
     // "taskmaster-ai": {
     //     "type": "stdio",
