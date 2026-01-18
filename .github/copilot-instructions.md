@@ -13,6 +13,12 @@
   - <WRITE YOUR TECH STACK HERE (ES. Astro, TailwindCSS, Playwright, pnpm) or reference a file like `prompt_node.prompt.md` or `prompt_astro.prompt.md`>
 - **Deployment**: <WRITE YOUR DEPLOYMENT STRATEGY HERE>
 - **Package Manager**: <WRITE YOUR PROJECT BUILD STRATEGY (only uses **pnpm**)>
+- **Available Agents**: Use specialized Copilot agents for specific tasks:
+  - `@prd` - Product Requirements Document creation
+  - `@plan` - Implementation planning
+  - `@tdd` - Test-Driven Development
+  - `@devops` - DevSecOps and deployment strategies
+  - `@lyra` - AI prompt optimization
 
 ## Code Generation Guidelines
 - Generate complete, production-ready code that adheres to project standards.
@@ -79,6 +85,10 @@
 - Prioritize self-documenting code with meaningful variable and function names.
 - Follow the DRY (Don't Repeat Yourself) principle.
 - For major features, suggest updates to the relevant history log files (`.github/prompts/prompt_history.md`).
+- Use specialized Copilot agents (`.github/agents/*.agent.md`) for structured workflows:
+  - `@prd` for creating Product Requirements Documents
+  - `@plan` for generating implementation plans
+  - `@tdd` for test-driven development workflows
 
 ## Response Format
 - Provide solutions in Markdown code blocks with the language specified.
