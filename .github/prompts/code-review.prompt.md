@@ -1,3 +1,8 @@
+---
+description: 'Comprehensive code review checklist'
+mode: 'review'
+---
+
 # Task: Provide a comprehensive list of the most critical elements to evaluate when conducting a code review
 
 ## Definitions

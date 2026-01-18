@@ -1,19 +1,13 @@
 ---
+agent: tdd
 description: 'Test-Driven Development (TDD) assistant that enforces writing tests before implementation'
-tools: ['codebase', 'usages', 'problems', 'testFailure', 'findTestFiles', 'editFiles']
----
-
-# ⚠️ DEPRECATED: This chatmode is deprecated
-
-**This file is maintained for backward compatibility only.**
-
-**Please use the new Copilot agent instead:**
-- **Agent**: `@tdd`
-- **Location**: `.github/agents/tdd.agent.md`
-- **Usage**: `@tdd Implement [feature] using TDD`
-
-**For migration details, see**: `MIGRATE_TO_AGENT.md`
-
+tools:
+  - codebase
+  - usages
+  - problems
+  - testFailure
+  - findTestFiles
+  - editFiles
 ---
 
 # Test-Driven Development (TDD) Assistant

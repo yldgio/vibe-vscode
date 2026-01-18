@@ -1,8 +1,20 @@
 # 🚀 Vibe Coding Template per Visual Studio Code
 
-Benvenuti nel **Vibe Coding Template**! Questo repository fornisce un template completo e strutturato per lo sviluppo software con Visual Studio Code, includendo istruzioni di coding, best practices e workflow per multiple tecnologie e linguaggi di programmazione.
+Benvenuti nel **Vibe Coding Template**! Questo repository fornisce un template completo e strutturato per lo sviluppo software con Visual Studio Code, includendo **Copilot agents**, istruzioni di coding, best practices e workflow per multiple tecnologie e linguaggi di programmazione.
 
 Inizia a sviluppare con fiducia seguendo standard professionali consolidati!
+
+## 🤖 Sistema di Agenti Copilot
+
+Questo template include **agenti specializzati GitHub Copilot** per assistenza AI mirata:
+
+- **@prd**: Assistente per Product Requirements Documents
+- **@plan**: Generazione piani di implementazione
+- **@tdd**: Sviluppo guidato da test (Test-Driven Development)
+- **@devops**: Esperto DevSecOps per Microsoft ecosystem
+- **@lyra**: Specialista ottimizzazione prompt AI
+
+Per dettagli, vedi `.github/agents/` e `MIGRATE_TO_AGENT.md`.
 
 ## ✨ Obiettivo del Progetto
 
@@ -37,14 +49,21 @@ Questo approccio strutturato garantisce codice di qualità, facilità di manuten
 
 ```
 .github/
-├── instructions/           # Istruzioni di coding per linguaggi specifici
-│   ├── general-coding.instructions.md     # Best practices generali
-│   ├── csharp-dotnet.instructions.md      # Istruzioni C#/.NET
-│   ├── react-ts.instructions.md           # Istruzioni React/TypeScript
-│   ├── git.instructions.md                # Workflow Git e commit standards
-│   └── work-items.instructions.md         # Azure DevOps e metodologie Agile
-├── copilot-instructions.md                # Configurazione GitHub Copilot
-└── prompts/                               # Template per sviluppo guidato AI
+├── agents/                              # Agenti Copilot specializzati
+│   ├── prd.agent.md                     # Product Requirements Document assistant
+│   ├── plan.agent.md                    # Implementation planning agent
+│   ├── tdd.agent.md                     # Test-Driven Development agent
+│   ├── devops.agent.md                  # DevSecOps expert agent
+│   └── lyra.agent.md                    # AI prompt optimization agent
+├── instructions/                        # Istruzioni di coding per linguaggi specifici
+│   ├── general-coding.instructions.md   # Best practices generali
+│   ├── csharp-dotnet.instructions.md    # Istruzioni C#/.NET
+│   ├── react-ts.instructions.md         # Istruzioni React/TypeScript
+│   ├── git.instructions.md              # Workflow Git e commit standards
+│   └── work-items.instructions.md       # Azure DevOps e metodologie Agile
+├── copilot-instructions.md              # Configurazione GitHub Copilot
+├── prompts/                             # Template per sviluppo guidato AI
+└── chatmodes/                           # DEPRECATED - usa agents invece
 ```
 
 ## 🎯 Caratteristiche Principali
@@ -92,12 +111,26 @@ pnpm install
 
 ### 3. Workflow di Sviluppo Guidato AI
 
-Per sviluppare nuove feature usando l'AI assistance:
+Per sviluppare nuove feature usando l'AI assistance con gli **agenti Copilot**:
 
-1. **Crea una PRD** usando i template forniti
-2. **Genera task list** dettagliate dalla PRD  
-3. **Implementa step-by-step** con revisione e approvazione di ogni task
+1. **Crea una PRD** usando `@prd` agent
+   ```
+   @prd Voglio costruire [descrivi la feature]
+   ```
+
+2. **Genera piano di implementazione** con `@plan` agent
+   ```
+   @plan Crea un piano basato su #MyFeature-PRD.md
+   ```
+
+3. **Implementa con TDD** usando `@tdd` agent
+   ```
+   @tdd Implementa task 1.1 da #task-list.md
+   ```
+
 4. **Segui i standard** di commit e branching definiti
+
+Per workflow alternativi, consulta `PRD-README.md`.
 
 ## 📋 Standard di Sviluppo
 

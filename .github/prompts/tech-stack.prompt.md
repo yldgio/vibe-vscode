@@ -1,3 +1,8 @@
+---
+description: 'Technology stack reference and guidelines for the project'
+mode: 'reference'
+---
+
 # Istruzioni sullo Stack Tecnologico
 
 ## Stack Principale

@@ -1,3 +1,8 @@
+---
+description: '.NET Test Automation expert specializing in unit, integration, and acceptance testing'
+mode: 'agent'
+---
+
 # Prompt per Agente AI - Scrittura di Test .NET
 
 **1. Persona e Obiettivo (Role & Goal)**
