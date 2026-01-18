@@ -77,7 +77,7 @@ Current repository assets to be exposed:
 ### Detailed Asset List
 
 #### Prompts (17)
-```
+```text
 .github/prompts/
 ├── ado-pipelines.prompt.md
 ├── bicep.prompt.md
@@ -99,7 +99,7 @@ Current repository assets to be exposed:
 ```
 
 #### Agents (5)
-```
+```text
 .github/agents/
 ├── devops.agent.md
 ├── lyra.agent.md
@@ -109,7 +109,7 @@ Current repository assets to be exposed:
 ```
 
 #### Instructions (8)
-```
+```text
 .github/instructions/
 ├── csharp-dotnet.instructions.md
 ├── general-coding.instructions.md
@@ -122,7 +122,7 @@ Current repository assets to be exposed:
 ```
 
 #### Skills (7)
-```
+```text
 .github/skills/
 ├── appinsights-instrumentation/SKILL.md
 ├── azure-resource-visualizer/SKILL.md
@@ -134,7 +134,7 @@ Current repository assets to be exposed:
 ```
 
 #### Chat Modes (5)
-```
+```text
 .github/chatmodes/
 ├── devops.chatmode.md
 ├── lyra.chatmode.md
@@ -159,7 +159,7 @@ Three prompts have Italian (`.it.`) localized variants:
 
 ### Dual Transport Design
 
-```
+```text
                     ┌─────────────────────────────────────┐
                     │           MCP Server                │
                     │         (vibe-vscode)               │
@@ -537,7 +537,7 @@ Add to `opencode.json`:
 
 ## Project Structure
 
-```
+```text
 ./mcp/
 ├── docs/
 │   └── DESIGN.md              # This document
