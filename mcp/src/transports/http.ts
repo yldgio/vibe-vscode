@@ -116,8 +116,10 @@ export function createHttpTransport(port: number): HttpTransport {
       return sseTransport;
     },
     start(): Promise<void> {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
+        httpServer.once("error", reject);
         httpServer.listen(port, () => {
+          httpServer.removeListener("error", reject);
           console.error(`MCP HTTP server listening on http://localhost:${port}`);
           console.error(`  SSE endpoint: http://localhost:${port}/sse`);
           console.error(`  Health check: http://localhost:${port}/health`);
