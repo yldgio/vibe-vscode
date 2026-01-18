@@ -27,10 +27,11 @@ const defaults: ServerConfig = {
  * Parse command-line arguments into configuration.
  */
 export function parseArgs(args: string[]): ServerConfig {
-  const config = { ...defaults };
+  const config: ServerConfig = { ...defaults };
 
   for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
+    const arg: string | undefined = args[i];
+    if (arg === undefined) continue;
 
     switch (arg) {
       case "--http":
@@ -38,7 +39,8 @@ export function parseArgs(args: string[]): ServerConfig {
         break;
 
       case "--port": {
-        const portValue = args[++i];
+        i++;
+        const portValue: string | undefined = args[i];
         if (portValue === undefined) {
           throw new Error("--port requires a value");
         }
@@ -51,7 +53,8 @@ export function parseArgs(args: string[]): ServerConfig {
       }
 
       case "--repo-root": {
-        const rootValue = args[++i];
+        i++;
+        const rootValue: string | undefined = args[i];
         if (rootValue === undefined) {
           throw new Error("--repo-root requires a value");
         }
@@ -66,7 +69,7 @@ export function parseArgs(args: string[]): ServerConfig {
         break; // unreachable but satisfies linter
 
       default:
-        if (arg?.startsWith("-")) {
+        if (arg.startsWith("-")) {
           console.error(`Unknown option: ${arg}`);
           printHelp();
           process.exit(1);

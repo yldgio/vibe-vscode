@@ -20,7 +20,7 @@ export interface HttpTransport {
 export function createHttpTransport(port: number): HttpTransport {
   let sseTransport: SSEServerTransport | null = null;
 
-  const httpServer = createServer(async (req: IncomingMessage, res: ServerResponse) => {
+  const handleRequest = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     try {
       const url = new URL(req.url || "/", `http://localhost:${port}`);
 
@@ -96,6 +96,18 @@ export function createHttpTransport(port: number): HttpTransport {
         res.end();
       }
     }
+  };
+
+  const httpServer = createServer((req: IncomingMessage, res: ServerResponse) => {
+    handleRequest(req, res).catch((error) => {
+      console.error("Unhandled error in request handler:", error);
+      if (!res.headersSent) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Internal server error" }));
+      } else if (!res.writableEnded) {
+        res.end();
+      }
+    });
   });
 
   return {

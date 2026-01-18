@@ -65,14 +65,20 @@ async function main(): Promise<void> {
     waitForConnection()
       .then(async () => {
         console.error("SSE client connected");
+        const transport = httpTransport.transport;
+        if (!transport) {
+          console.error("Transport became unavailable");
+          process.exit(1);
+          return;
+        }
         try {
-          await server.connect(httpTransport.transport!);
+          await server.connect(transport);
         } catch (error) {
           console.error("Failed to connect MCP server to transport:", error);
           process.exit(1);
         }
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.error("Connection error:", error.message);
       });
   } else {
