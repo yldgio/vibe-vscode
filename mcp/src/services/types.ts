@@ -1,7 +1,7 @@
 /**
  * Asset types supported by the MCP server.
  */
-export type AssetType = "prompt" | "agent" | "instruction" | "skill" | "chatmode";
+export type AssetType = "prompt" | "agent" | "instruction" | "skill";
 
 /**
  * Represents an AI customization asset.
