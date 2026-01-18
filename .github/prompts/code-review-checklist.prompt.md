@@ -1,3 +1,8 @@
+---
+description: 'Comprehensive code review checklist for maintaining high code quality standards'
+mode: 'checklist'
+---
+
 # Code Review Checklist
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+description: 'Generate complete end-to-end tests using Playwright in TypeScript'
+mode: 'generate'
+---
+
 # Istruzioni per Generazione Test Playwright
 
 ## Processo di Generazione Test
