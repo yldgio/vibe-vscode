@@ -24,14 +24,28 @@ const defaults: ServerConfig = {
 };
 
 /**
+ * Safely get an argument at the specified index.
+ */
+function getArg(args: readonly string[], index: number): string | undefined {
+  if (index < 0 || index >= args.length) {
+    return undefined;
+  }
+  return args.at(index);
+}
+
+/**
  * Parse command-line arguments into configuration.
  */
 export function parseArgs(args: string[]): ServerConfig {
   const config: ServerConfig = { ...defaults };
+  const argsCopy: readonly string[] = [...args];
 
-  for (let i = 0; i < args.length; i++) {
-    const arg: string | undefined = args[i];
-    if (arg === undefined) continue;
+  let i = 0;
+  while (i < argsCopy.length) {
+    const arg = getArg(argsCopy, i);
+    i++;
+
+    if (!arg) continue;
 
     switch (arg) {
       case "--http":
@@ -39,9 +53,9 @@ export function parseArgs(args: string[]): ServerConfig {
         break;
 
       case "--port": {
+        const portValue = getArg(argsCopy, i);
         i++;
-        const portValue: string | undefined = args[i];
-        if (portValue === undefined) {
+        if (!portValue) {
           throw new Error("--port requires a value");
         }
         const port = parseInt(portValue, 10);
@@ -53,9 +67,9 @@ export function parseArgs(args: string[]): ServerConfig {
       }
 
       case "--repo-root": {
+        const rootValue = getArg(argsCopy, i);
         i++;
-        const rootValue: string | undefined = args[i];
-        if (rootValue === undefined) {
+        if (!rootValue) {
           throw new Error("--repo-root requires a value");
         }
         config.repoRoot = resolve(rootValue);
