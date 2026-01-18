@@ -16,6 +16,62 @@ Questo template include **agenti specializzati GitHub Copilot** per assistenza A
 
 Per dettagli, vedi `.github/agents/` e `MIGRATE_TO_AGENT.md`.
 
+## 🎓 Skills Specs e Utilizzo
+
+Questo template include **skills specializzate** per GitHub Copilot, progettate per accelerare workflow di sviluppo specifici. Le skills sono disponibili nella directory `.github/skills/` e forniscono pattern, best practices e implementazioni di riferimento.
+
+### Skills Incluse
+
+Tutte le skills sono disponibili localmente in `.github/skills/` e vengono utilizzate automaticamente da GitHub Copilot quando necessario.
+
+#### Azure & Cloud Skills
+
+- **[appinsights-instrumentation](.github/skills/appinsights-instrumentation)**: Aggiunge automaticamente Application Insights instrumentation al codice per monitoring e telemetria. Utile per progetti Azure che richiedono tracciamento performance e diagnostica.
+
+- **[azure-resource-visualizer](.github/skills/azure-resource-visualizer)**: Visualizza risorse Azure e dipendenze infrastrutturali. Ideale per comprendere architetture cloud complesse e pianificare deployment.
+
+- **[azure-role-selector](.github/skills/azure-role-selector)**: Assista nella selezione e configurazione dei ruoli Azure RBAC appropriati. Migliora la sicurezza suggerendo permission set minimali secondo il principio di least privilege.
+
+#### Frontend & Design Skills
+
+- **[frontend-design](.github/skills/frontend-design)**: Assistenza nella progettazione di interfacce frontend moderne, con focus su UX/UI patterns, accessibilità e responsive design.
+
+- **[canvas-design](.github/skills/canvas-design)**: Skills specializzate per lavorare con HTML5 Canvas, grafica 2D e visualizzazioni interattive.
+
+#### Document Generation Skills
+
+- **[docx](.github/skills/docx)**: Generazione e manipolazione di documenti Microsoft Word (.docx) tramite codice, utile per report automatici e documentazione.
+
+#### Extensibility Skills
+
+- **[mcp-builder](.github/skills/mcp-builder)**: Costruzione di Model Context Protocol (MCP) servers per estendere le capacità di GitHub Copilot con tool e data sources personalizzati.
+
+### Come Utilizzare le Skills
+
+Le skills sono utilizzate automaticamente da GitHub Copilot quando rileva task correlati. Puoi anche referenziarle esplicitamente:
+
+1. **Usa Copilot normalmente**: Le skills vengono applicate automaticamente quando pertinenti
+2. **Referenzia esplicitamente**: "@workspace usa appinsights-instrumentation skill per aggiungere telemetria"
+3. **Integra con gli agenti**: Combina con `@prd`, `@plan`, `@tdd`, `@devops`, `@lyra`
+4. **Segui i pattern**: Ogni skill include esempi di codice e best practices
+
+### Best Practices per Skills Integration
+
+- **Valida la sicurezza**: Controlla che le implementazioni seguano gli standard di sicurezza
+- **Testa approfonditamente**: Verifica ogni integrazione nel contesto del progetto
+- **Documenta l'utilizzo**: Aggiungi esempi pratici nelle PR e nella documentazione
+- **Segui gli standard**: Applica le istruzioni di coding del template (`.github/instructions/`)
+- **Contribuisci**: Migliora le skills esistenti o aggiungine di nuove
+
+Per dettagli completi, consulta [.github/skills/README.md](.github/skills/README.md).
+
+### Skills di Riferimento Esterne
+
+Per ulteriori esempi e pattern, consulta:
+- [GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills)
+- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)
+
+
 ## ✨ Obiettivo del Progetto
 
 Il **Vibe Coding Template** è progettato per fornire una base solida e standardizzata per lo sviluppo software moderno. Il template include:
@@ -169,10 +225,45 @@ Questo template è progettato per essere esteso e migliorato:
 
 ## 📚 Risorse Aggiuntive
 
+### Standard e Documentazione
 - **[Conventional Commits](https://www.conventionalcommits.org/)** - Standard per messaggi di commit
 - **[WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/)** - Linee guida per accessibilità
 - **[TypeScript Handbook](https://www.typescriptlang.org/docs/)** - Documentazione TypeScript
 - **[.NET Guidelines](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/)** - Best practices .NET
+
+### Skills e AI Tools
+- **[GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills)** - Curated Copilot skills per Azure, monitoring e altro
+- **[Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)** - Skills per design, documentation e MCP builders
+
+---
+
+## 🌍 English Summary
+
+### Skills Specs and Usage
+
+This template includes **specialized skills** for GitHub Copilot, designed to accelerate specific development workflows. Skills are available locally in `.github/skills/` and are automatically used by GitHub Copilot when relevant.
+
+**Included Skills:**
+
+- **appinsights-instrumentation**: Adds Application Insights instrumentation for monitoring and telemetry
+- **azure-resource-visualizer**: Visualizes Azure resources and infrastructure dependencies
+- **azure-role-selector**: Assists in selecting and configuring appropriate Azure RBAC roles
+- **frontend-design**: Assistance in designing modern frontend interfaces with focus on UX/UI patterns
+- **canvas-design**: Specialized skills for working with HTML5 Canvas and interactive visualizations
+- **docx**: Generation and manipulation of Microsoft Word documents programmatically
+- **mcp-builder**: Building Model Context Protocol (MCP) servers to extend GitHub Copilot capabilities
+
+**How to Use:**
+- Skills are applied automatically by GitHub Copilot when working on related tasks
+- Reference explicitly: `@workspace use appinsights-instrumentation skill to add telemetry`
+- Combine with agents: `@prd`, `@plan`, `@tdd`, `@devops`, `@lyra`
+- Each skill includes code examples, best practices, and implementation guides
+
+For complete details, see [.github/skills/README.md](.github/skills/README.md).
+
+**External References:**
+- [GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills)
+- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)
 
 ---
 

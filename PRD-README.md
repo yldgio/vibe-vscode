@@ -14,6 +14,65 @@ This repository now uses **GitHub Copilot agents** as the primary system for AI 
 
 **For all new workflows, use Copilot agents (`@agent-name`) instead of legacy chatmodes.**
 
+## 🎓 Leveraging AI Skills in Your Workflow
+
+This repository includes **specialized AI skills** in `.github/skills/` that extend GitHub Copilot with patterns, best practices, and automation for specific tasks. Skills are automatically available to Copilot and can be referenced explicitly in your workflow.
+
+### How to Use Skills with AI Agents
+
+Skills work automatically with GitHub Copilot. You can also reference them explicitly:
+
+**During PRD Creation** (`@prd`):
+```
+@prd I want to build a monitoring dashboard for our Azure resources
+Use azure-resource-visualizer skill for infrastructure visualization patterns
+```
+
+**During Planning** (`@plan`):
+```
+@plan Create implementation plan for #MonitoringDashboard-PRD.md
+Apply frontend-design skill patterns for UI components
+```
+
+**During Implementation** (`@tdd`):
+```
+@tdd Implement telemetry tracking for task 2.3 from #task-list.md
+Use appinsights-instrumentation skill for Azure monitoring setup
+```
+
+**For DevOps Tasks** (`@devops`):
+```
+@devops Configure Azure RBAC for the new service
+Apply azure-role-selector skill for least privilege patterns
+```
+
+### Available Skills (Local in `.github/skills/`)
+
+**Azure & Cloud:**
+- **appinsights-instrumentation**: Azure Application Insights monitoring and telemetry
+- **azure-resource-visualizer**: Infrastructure visualization and dependency mapping
+- **azure-role-selector**: RBAC configuration with least privilege patterns
+
+**Frontend & Design:**
+- **frontend-design**: Modern UI/UX patterns with accessibility
+- **canvas-design**: HTML5 Canvas and interactive visualizations
+
+**Document Generation:**
+- **docx**: Microsoft Word document generation and manipulation
+
+**Extensibility:**
+- **mcp-builder**: Model Context Protocol server development for extending GitHub Copilot
+
+### Best Practices for Skills Integration
+
+1. **Skills are automatic**: GitHub Copilot uses relevant skills based on your code context
+2. **Reference explicitly**: Use `@workspace` with skill names for specific guidance
+3. **Combine skills with agents**: Leverage skills within `@prd`, `@plan`, `@tdd` workflows
+4. **Follow skill patterns**: Each skill includes code examples and best practices
+5. **Document skill usage**: Note which skill patterns you apply in your PRDs
+
+For complete skill documentation and examples, see [.github/skills/README.md](.github/skills/README.md).
+
 ## ✨ The Core Idea
 
 Building complex features with AI can sometimes feel like a black box. This workflow aims to bring structure, clarity, and control to the process by:
@@ -109,6 +168,30 @@ Located in `.github/agents/`:
 *   **@devops** (devops.agent.md): DevSecOps expert for Microsoft ecosystem, Git, and deployment strategies
 *   **@lyra** (lyra.agent.md): AI prompt optimization specialist for improving AI interactions
 
+### Skills (Local in `.github/skills/`)
+Complete skill implementations included in this repository:
+
+**Azure & Cloud:**
+*   **[appinsights-instrumentation](.github/skills/appinsights-instrumentation)**: Azure Application Insights monitoring and telemetry setup
+*   **[azure-resource-visualizer](.github/skills/azure-resource-visualizer)**: Infrastructure visualization with Mermaid/PlantUML diagrams
+*   **[azure-role-selector](.github/skills/azure-role-selector)**: RBAC configuration following least privilege principles
+
+**Frontend & Design:**
+*   **[frontend-design](.github/skills/frontend-design)**: Modern UI/UX design patterns with accessibility focus
+*   **[canvas-design](.github/skills/canvas-design)**: HTML5 Canvas graphics and interactive visualizations
+
+**Document Generation:**
+*   **[docx](.github/skills/docx)**: Microsoft Word document generation and manipulation
+
+**Extensibility:**
+*   **[mcp-builder](.github/skills/mcp-builder)**: Build Model Context Protocol servers for GitHub Copilot
+
+💡 **Tip**: Skills are automatically available to GitHub Copilot. Reference them explicitly in prompts for specific guidance. See [.github/skills/README.md](.github/skills/README.md) for complete documentation.
+
+**External References:**
+- [GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills) - Additional skill examples
+- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills) - More skill patterns
+
 ### Prompt Files (Task-Specific)
 Located in `.github/prompts/`:
 
@@ -167,8 +250,10 @@ For complete migration details, see **`MIGRATE_TO_AGENT.md`**.
 
 *   **Be Specific:** The more context and clear instructions you provide (both in your initial feature description and any clarifications), the better the AI's output will be.
 *   **Use Agents First**: Prefer `@agent-name` syntax over legacy prompt files for better integration.
-*   **Combine Approaches**: Use agents for structured workflows and prompt files for specific tasks.
+*   **Leverage Local Skills**: Use the skills in `.github/skills/` - they're automatically available to GitHub Copilot. Reference explicitly for specific guidance (e.g., "Use azure-role-selector skill for RBAC configuration").
+*   **Combine Approaches**: Use agents for structured workflows, skills for domain expertise, and prompt files for specific tasks.
 *   **Correct File Tagging:** Always ensure you're accurately tagging files (e.g., `#MyFeature-PRD.md`) when needed.
+*   **Document Skills Usage**: When using skill patterns in your implementation, note which skills informed your approach for future reference.
 *   **Patience and Iteration:** AI is a powerful tool, but it's not magic. Be prepared to guide, correct, and iterate. This workflow is designed to make that iteration process smoother.
 
 ## 🤝 Contributing
