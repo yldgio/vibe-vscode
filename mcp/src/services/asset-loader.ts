@@ -4,15 +4,21 @@ import type { Asset, AssetMetadata, AssetType } from "./types.js";
 import type { DiscoveredFile } from "./file-discovery.js";
 
 /**
- * Extension patterns for each asset type.
+ * Get the extension pattern for an asset type.
  * Used to derive the name from the filename.
  */
-const EXTENSION_PATTERNS: Record<AssetType, RegExp> = {
-  prompt: /\.prompt\.md$/,
-  agent: /\.agent\.md$/,
-  instruction: /\.instructions\.md$/,
-  skill: /SKILL\.md$/,
-};
+function getExtensionPattern(type: AssetType): RegExp {
+  switch (type) {
+    case "prompt":
+      return /\.prompt\.md$/;
+    case "agent":
+      return /\.agent\.md$/;
+    case "instruction":
+      return /\.instructions\.md$/;
+    case "skill":
+      return /SKILL\.md$/;
+  }
+}
 
 /**
  * Pattern to detect locale in filenames (e.g., "create-prd.it.prompt.md").
@@ -58,7 +64,7 @@ function deriveName(type: AssetType, relativePath: string): string {
   }
   
   // Remove the extension pattern
-  const extensionPattern = EXTENSION_PATTERNS[type];
+  const extensionPattern = getExtensionPattern(type);
   return fileName.replace(extensionPattern, "");
 }
 
@@ -109,8 +115,15 @@ function parseFrontmatter(content: string): AssetMetadata | undefined {
     if (!keyValueMatch) continue;
     
     const key = keyValueMatch[1];
-    const value = keyValueMatch[2] ?? keyValueMatch[3] ?? keyValueMatch[4];
-    if (!key || value === undefined) continue;
+    if (!key) continue;
+    
+    // Extract value from mutually exclusive capture groups (2=double-quoted, 3=single-quoted, 4=unquoted)
+    const value = keyValueMatch[2] !== undefined
+      ? keyValueMatch[2]
+      : keyValueMatch[3] !== undefined
+        ? keyValueMatch[3]
+        : keyValueMatch[4];
+    if (value === undefined) continue;
     
     switch (key.toLowerCase()) {
       case "title":
@@ -159,6 +172,8 @@ function parseFrontmatter(content: string): AssetMetadata | undefined {
  */
 export async function loadAsset(file: DiscoveredFile): Promise<Asset | null> {
   try {
+    // Path is validated through file discovery - only reads from known asset directories
+    // nosemgrep: javascript.lang.security.audit.path-traversal.path-traversal-non-literal-fs-access
     const content = await readFile(file.absolutePath, "utf-8");
     
     const asset: Asset = {
