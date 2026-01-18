@@ -121,7 +121,7 @@ Current repository assets to be exposed:
 └── work-items.instructions.md
 ```
 
-#### Skills (8)
+#### Skills (7)
 ```
 .github/skills/
 ├── appinsights-instrumentation/SKILL.md
@@ -130,8 +130,7 @@ Current repository assets to be exposed:
 ├── canvas-design/SKILL.md
 ├── docx/SKILL.md
 ├── frontend-design/SKILL.md
-├── mcp-builder/SKILL.md
-└── README.md
+└── mcp-builder/SKILL.md
 ```
 
 #### Chat Modes (5)
