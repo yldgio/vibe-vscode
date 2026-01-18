@@ -129,9 +129,16 @@ export function createHttpTransport(port: number): HttpTransport {
     },
     close(): Promise<void> {
       return new Promise((resolve, reject) => {
-        httpServer.close((err) => {
-          if (err) reject(err);
-          else resolve();
+        // Close SSE transport first to terminate active connections
+        const closeTransport = sseTransport?.close?.().catch((err) => {
+          console.error("Error closing SSE transport:", err);
+        }) ?? Promise.resolve();
+
+        closeTransport.finally(() => {
+          httpServer.close((err) => {
+            if (err) reject(err);
+            else resolve();
+          });
         });
       });
     },
