@@ -16,59 +16,62 @@ This repository now uses **GitHub Copilot agents** as the primary system for AI 
 
 ## 🎓 Leveraging AI Skills in Your Workflow
 
-Beyond the built-in agents, you can enhance your development workflow by leveraging **specialized AI skills** from external repositories. These skills provide pre-built patterns, best practices, and automation for specific tasks:
+This repository includes **specialized AI skills** in `.github/skills/` that extend GitHub Copilot with patterns, best practices, and automation for specific tasks. Skills are automatically available to Copilot and can be referenced explicitly in your workflow.
 
 ### How to Use Skills with AI Agents
+
+Skills work automatically with GitHub Copilot. You can also reference them explicitly:
 
 **During PRD Creation** (`@prd`):
 ```
 @prd I want to build a monitoring dashboard for our Azure resources
-Consider using patterns from azure-resource-visualizer skill for visualization
-Reference: https://github.com/github/awesome-copilot/tree/main/skills/azure-resource-visualizer
+Use azure-resource-visualizer skill for infrastructure visualization patterns
 ```
 
 **During Planning** (`@plan`):
 ```
 @plan Create implementation plan for #MonitoringDashboard-PRD.md
-Apply frontend-design patterns from Anthropic skills for UI components
-Reference: https://github.com/anthropics/skills/tree/main/skills/frontend-design
+Apply frontend-design skill patterns for UI components
 ```
 
 **During Implementation** (`@tdd`):
 ```
 @tdd Implement telemetry tracking for task 2.3 from #task-list.md
-Use appinsights-instrumentation patterns for Azure monitoring
-Reference: https://github.com/github/awesome-copilot/tree/main/skills/appinsights-instrumentation
+Use appinsights-instrumentation skill for Azure monitoring setup
 ```
 
 **For DevOps Tasks** (`@devops`):
 ```
 @devops Configure Azure RBAC for the new service
-Apply least privilege patterns from azure-role-selector skill
-Reference: https://github.com/github/awesome-copilot/tree/main/skills/azure-role-selector
+Apply azure-role-selector skill for least privilege patterns
 ```
 
-### Available Skill Categories
+### Available Skills (Local in `.github/skills/`)
 
-**GitHub Copilot Skills** (from [awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills)):
-- **Monitoring & Telemetry**: appinsights-instrumentation
-- **Infrastructure Visualization**: azure-resource-visualizer  
-- **Security & Access Control**: azure-role-selector
+**Azure & Cloud:**
+- **appinsights-instrumentation**: Azure Application Insights monitoring and telemetry
+- **azure-resource-visualizer**: Infrastructure visualization and dependency mapping
+- **azure-role-selector**: RBAC configuration with least privilege patterns
 
-**Anthropic Skills** (from [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills)):
-- **UI/UX Design**: frontend-design, canvas-design
-- **Documentation**: docx
-- **Extensibility**: mcp-builder
+**Frontend & Design:**
+- **frontend-design**: Modern UI/UX patterns with accessibility
+- **canvas-design**: HTML5 Canvas and interactive visualizations
+
+**Document Generation:**
+- **docx**: Microsoft Word document generation and manipulation
+
+**Extensibility:**
+- **mcp-builder**: Model Context Protocol server development for extending GitHub Copilot
 
 ### Best Practices for Skills Integration
 
-1. **Reference skills in your prompts** to guide AI with proven patterns
-2. **Study skill implementations** before adapting them to your project
-3. **Combine skills with agents** for maximum effectiveness
-4. **Maintain security standards** when integrating external patterns
-5. **Document skill usage** in your PRDs and implementation plans
+1. **Skills are automatic**: GitHub Copilot uses relevant skills based on your code context
+2. **Reference explicitly**: Use `@workspace` with skill names for specific guidance
+3. **Combine skills with agents**: Leverage skills within `@prd`, `@plan`, `@tdd` workflows
+4. **Follow skill patterns**: Each skill includes code examples and best practices
+5. **Document skill usage**: Note which skill patterns you apply in your PRDs
 
-For detailed skill descriptions and usage scenarios, see the main README.md "Skills Specs e Utilizzo" section.
+For complete skill documentation and examples, see [.github/skills/README.md](.github/skills/README.md).
 
 ## ✨ The Core Idea
 
@@ -165,21 +168,29 @@ Located in `.github/agents/`:
 *   **@devops** (devops.agent.md): DevSecOps expert for Microsoft ecosystem, Git, and deployment strategies
 *   **@lyra** (lyra.agent.md): AI prompt optimization specialist for improving AI interactions
 
-### External Skills References
-Curated skills from external repositories that can enhance your workflow:
+### Skills (Local in `.github/skills/`)
+Complete skill implementations included in this repository:
 
-**GitHub Copilot Skills** ([awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills)):
-*   **[appinsights-instrumentation](https://github.com/github/awesome-copilot/tree/main/skills/appinsights-instrumentation)**: Azure Application Insights monitoring and telemetry
-*   **[azure-resource-visualizer](https://github.com/github/awesome-copilot/tree/main/skills/azure-resource-visualizer)**: Infrastructure visualization and dependency mapping
-*   **[azure-role-selector](https://github.com/github/awesome-copilot/tree/main/skills/azure-role-selector)**: RBAC configuration with least privilege patterns
+**Azure & Cloud:**
+*   **[appinsights-instrumentation](.github/skills/appinsights-instrumentation)**: Azure Application Insights monitoring and telemetry setup
+*   **[azure-resource-visualizer](.github/skills/azure-resource-visualizer)**: Infrastructure visualization with Mermaid/PlantUML diagrams
+*   **[azure-role-selector](.github/skills/azure-role-selector)**: RBAC configuration following least privilege principles
 
-**Anthropic Skills** ([anthropics/skills](https://github.com/anthropics/skills/tree/main/skills)):
-*   **[frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design)**: Modern UI/UX design patterns and accessibility
-*   **[canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design)**: HTML5 Canvas and interactive visualizations
-*   **[docx](https://github.com/anthropics/skills/tree/main/skills/docx)**: Microsoft Word document generation and manipulation
-*   **[mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder)**: Model Context Protocol server development
+**Frontend & Design:**
+*   **[frontend-design](.github/skills/frontend-design)**: Modern UI/UX design patterns with accessibility focus
+*   **[canvas-design](.github/skills/canvas-design)**: HTML5 Canvas graphics and interactive visualizations
 
-💡 **Tip**: Reference these skills in your agent prompts to apply proven patterns to your implementation. See the "Leveraging AI Skills" section above for examples.
+**Document Generation:**
+*   **[docx](.github/skills/docx)**: Microsoft Word document generation and manipulation
+
+**Extensibility:**
+*   **[mcp-builder](.github/skills/mcp-builder)**: Build Model Context Protocol servers for GitHub Copilot
+
+💡 **Tip**: Skills are automatically available to GitHub Copilot. Reference them explicitly in prompts for specific guidance. See [.github/skills/README.md](.github/skills/README.md) for complete documentation.
+
+**External References:**
+- [GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills) - Additional skill examples
+- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills) - More skill patterns
 
 ### Prompt Files (Task-Specific)
 Located in `.github/prompts/`:
@@ -239,10 +250,10 @@ For complete migration details, see **`MIGRATE_TO_AGENT.md`**.
 
 *   **Be Specific:** The more context and clear instructions you provide (both in your initial feature description and any clarifications), the better the AI's output will be.
 *   **Use Agents First**: Prefer `@agent-name` syntax over legacy prompt files for better integration.
-*   **Leverage External Skills**: Reference curated skills from awesome-copilot and anthropics/skills in your prompts to apply proven patterns. Example: "Use azure-role-selector patterns for RBAC configuration."
-*   **Combine Approaches**: Use agents for structured workflows and prompt files for specific tasks.
+*   **Leverage Local Skills**: Use the skills in `.github/skills/` - they're automatically available to GitHub Copilot. Reference explicitly for specific guidance (e.g., "Use azure-role-selector skill for RBAC configuration").
+*   **Combine Approaches**: Use agents for structured workflows, skills for domain expertise, and prompt files for specific tasks.
 *   **Correct File Tagging:** Always ensure you're accurately tagging files (e.g., `#MyFeature-PRD.md`) when needed.
-*   **Document Skills Usage**: When referencing external skills in your PRD or implementation, note which patterns you're applying for future reference.
+*   **Document Skills Usage**: When using skill patterns in your implementation, note which skills informed your approach for future reference.
 *   **Patience and Iteration:** AI is a powerful tool, but it's not magic. Be prepared to guide, correct, and iterate. This workflow is designed to make that iteration process smoother.
 
 ## 🤝 Contributing

@@ -18,47 +18,59 @@ Per dettagli, vedi `.github/agents/` e `MIGRATE_TO_AGENT.md`.
 
 ## 🎓 Skills Specs e Utilizzo
 
-Questo template può essere arricchito con **skills specializzate** per Copilot e altri sistemi AI, progettate per accelerare workflow di sviluppo specifici. Di seguito alcune **curated skills** di riferimento da repository esterni che puoi studiare e adattare al tuo progetto.
+Questo template include **skills specializzate** per GitHub Copilot, progettate per accelerare workflow di sviluppo specifici. Le skills sono disponibili nella directory `.github/skills/` e forniscono pattern, best practices e implementazioni di riferimento.
 
-### GitHub Copilot Skills (awesome-copilot)
+### Skills Incluse
 
-La repository [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills) contiene skills progettate per integrazioni e task avanzati:
+Tutte le skills sono disponibili localmente in `.github/skills/` e vengono utilizzate automaticamente da GitHub Copilot quando necessario.
 
-- **[appinsights-instrumentation](https://github.com/github/awesome-copilot/tree/main/skills/appinsights-instrumentation)**: Aggiunge automaticamente Application Insights instrumentation al codice per monitoring e telemetria. Utile per progetti Azure che richiedono tracciamento performance e diagnostica.
+#### Azure & Cloud Skills
 
-- **[azure-resource-visualizer](https://github.com/github/awesome-copilot/tree/main/skills/azure-resource-visualizer)**: Visualizza risorse Azure e dipendenze infrastrutturali. Ideale per comprendere architetture cloud complesse e pianificare deployment.
+- **[appinsights-instrumentation](.github/skills/appinsights-instrumentation)**: Aggiunge automaticamente Application Insights instrumentation al codice per monitoring e telemetria. Utile per progetti Azure che richiedono tracciamento performance e diagnostica.
 
-- **[azure-role-selector](https://github.com/github/awesome-copilot/tree/main/skills/azure-role-selector)**: Assiste nella selezione e configurazione dei ruoli Azure RBAC appropriati. Migliora la sicurezza suggerendo permission set minimali secondo il principio di least privilege.
+- **[azure-resource-visualizer](.github/skills/azure-resource-visualizer)**: Visualizza risorse Azure e dipendenze infrastrutturali. Ideale per comprendere architetture cloud complesse e pianificare deployment.
 
-### Anthropic Skills
+- **[azure-role-selector](.github/skills/azure-role-selector)**: Assista nella selezione e configurazione dei ruoli Azure RBAC appropriati. Migliora la sicurezza suggerendo permission set minimali secondo il principio di least privilege.
 
-La repository [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills) offre skills per design, documentazione e building tools:
+#### Frontend & Design Skills
 
-- **[frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design)**: Assistenza nella progettazione di interfacce frontend moderne, con focus su UX/UI patterns, accessibilità e responsive design.
+- **[frontend-design](.github/skills/frontend-design)**: Assistenza nella progettazione di interfacce frontend moderne, con focus su UX/UI patterns, accessibilità e responsive design.
 
-- **[canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design)**: Skills specializzate per lavorare con HTML5 Canvas, grafica 2D e visualizzazioni interattive.
+- **[canvas-design](.github/skills/canvas-design)**: Skills specializzate per lavorare con HTML5 Canvas, grafica 2D e visualizzazioni interattive.
 
-- **[docx](https://github.com/anthropics/skills/tree/main/skills/docx)**: Generazione e manipolazione di documenti Microsoft Word (.docx) tramite AI, utile per report automatici e documentazione.
+#### Document Generation Skills
 
-- **[mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder)**: Costruzione di Model Context Protocol (MCP) servers per estendere le capacità degli AI agents con tool e data sources personalizzati.
+- **[docx](.github/skills/docx)**: Generazione e manipolazione di documenti Microsoft Word (.docx) tramite codice, utile per report automatici e documentazione.
+
+#### Extensibility Skills
+
+- **[mcp-builder](.github/skills/mcp-builder)**: Costruzione di Model Context Protocol (MCP) servers per estendere le capacità di GitHub Copilot con tool e data sources personalizzati.
 
 ### Come Utilizzare le Skills
 
-1. **Esplora le repositories esterne** per comprendere struttura e implementazione delle skills
-2. **Adatta le skills al tuo contesto** seguendo i pattern del progetto e le best practices
-3. **Integra con gli agenti Copilot** esistenti (`@prd`, `@plan`, `@tdd`, `@devops`, `@lyra`)
-4. **Referenzia le skills nei prompt** per task specifici (es. "@devops usa pattern da azure-role-selector per configurare RBAC")
-5. **Mantieni coerenza** con gli standard di sicurezza, testing e accessibilità del template
+Le skills sono utilizzate automaticamente da GitHub Copilot quando rileva task correlati. Puoi anche referenziarle esplicitamente:
+
+1. **Usa Copilot normalmente**: Le skills vengono applicate automaticamente quando pertinenti
+2. **Referenzia esplicitamente**: "@workspace usa appinsights-instrumentation skill per aggiungere telemetria"
+3. **Integra con gli agenti**: Combina con `@prd`, `@plan`, `@tdd`, `@devops`, `@lyra`
+4. **Segui i pattern**: Ogni skill include esempi di codice e best practices
 
 ### Best Practices per Skills Integration
 
-- **Valida la sicurezza**: Controlla che le skills non introducano vulnerabilità
-- **Testa approfonditamente**: Ogni skill deve essere testata nel contesto del progetto
-- **Documenta l'utilizzo**: Aggiungi esempi pratici di come usare ogni skill
+- **Valida la sicurezza**: Controlla che le implementazioni seguano gli standard di sicurezza
+- **Testa approfonditamente**: Verifica ogni integrazione nel contesto del progetto
+- **Documenta l'utilizzo**: Aggiungi esempi pratici nelle PR e nella documentazione
 - **Segui gli standard**: Applica le istruzioni di coding del template (`.github/instructions/`)
-- **Versionamento**: Traccia le skills utilizzate e le loro versioni per riproducibilità
+- **Contribuisci**: Migliora le skills esistenti o aggiungine di nuove
 
-**Nota**: Le skills referenziate sono esempi esterni da studiare e adattare. Non sono incluse direttamente in questo template ma rappresentano pattern e approcci consigliati.
+Per dettagli completi, consulta [.github/skills/README.md](.github/skills/README.md).
+
+### Skills di Riferimento Esterne
+
+Per ulteriori esempi e pattern, consulta:
+- [GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills)
+- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)
+
 
 ## ✨ Obiettivo del Progetto
 
@@ -229,20 +241,29 @@ Questo template è progettato per essere esteso e migliorato:
 
 ### Skills Specs and Usage
 
-This template can be enriched with **specialized skills** for Copilot and other AI systems, designed to accelerate specific development workflows. The following curated skills from external repositories can be studied and adapted to your project:
+This template includes **specialized skills** for GitHub Copilot, designed to accelerate specific development workflows. Skills are available locally in `.github/skills/` and are automatically used by GitHub Copilot when relevant.
 
-**GitHub Copilot Skills** ([awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills)):
+**Included Skills:**
+
 - **appinsights-instrumentation**: Adds Application Insights instrumentation for monitoring and telemetry
 - **azure-resource-visualizer**: Visualizes Azure resources and infrastructure dependencies
 - **azure-role-selector**: Assists in selecting and configuring appropriate Azure RBAC roles
-
-**Anthropic Skills** ([anthropics/skills](https://github.com/anthropics/skills/tree/main/skills)):
 - **frontend-design**: Assistance in designing modern frontend interfaces with focus on UX/UI patterns
 - **canvas-design**: Specialized skills for working with HTML5 Canvas and interactive visualizations
-- **docx**: Generation and manipulation of Microsoft Word documents via AI
-- **mcp-builder**: Building Model Context Protocol (MCP) servers to extend AI agents capabilities
+- **docx**: Generation and manipulation of Microsoft Word documents programmatically
+- **mcp-builder**: Building Model Context Protocol (MCP) servers to extend GitHub Copilot capabilities
 
-For detailed documentation on how to use and integrate these skills, refer to the "Skills Specs e Utilizzo" section above.
+**How to Use:**
+- Skills are applied automatically by GitHub Copilot when working on related tasks
+- Reference explicitly: `@workspace use appinsights-instrumentation skill to add telemetry`
+- Combine with agents: `@prd`, `@plan`, `@tdd`, `@devops`, `@lyra`
+- Each skill includes code examples, best practices, and implementation guides
+
+For complete details, see [.github/skills/README.md](.github/skills/README.md).
+
+**External References:**
+- [GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills)
+- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)
 
 ---
 
