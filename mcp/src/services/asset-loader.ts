@@ -104,13 +104,13 @@ function parseFrontmatter(content: string): AssetMetadata | undefined {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith("#")) continue;
     
-    // Match key: value or key: "value" or key: 'value'
-    const keyValueMatch = trimmed.match(/^(\w+):\s*['"]?(.+?)['"]?\s*$/);
+    // Match key: value or key: "value" or key: 'value', requiring paired quotes when present
+    const keyValueMatch = trimmed.match(/^(\w+):\s*(?:"([^"]*)"|'([^']*)'|(.+))\s*$/);
     if (!keyValueMatch) continue;
     
     const key = keyValueMatch[1];
-    const value = keyValueMatch[2];
-    if (!key || !value) continue;
+    const value = keyValueMatch[2] ?? keyValueMatch[3] ?? keyValueMatch[4];
+    if (!key || value === undefined) continue;
     
     switch (key.toLowerCase()) {
       case "title":
@@ -124,7 +124,22 @@ function parseFrontmatter(content: string): AssetMetadata | undefined {
         metadata.tags = value
           .replace(/^\[|\]$/g, "") // Remove array brackets if present
           .split(",")
-          .map(tag => tag.trim().replace(/^['"]|['"]$/g, ""))
+          .map((rawTag) => {
+            const trimmedTag = rawTag.trim();
+            if (trimmedTag.length < 2) return trimmedTag;
+
+            const firstChar = trimmedTag[0];
+            const lastChar = trimmedTag[trimmedTag.length - 1];
+            const isQuoteChar = (ch: string | undefined): boolean => ch === "'" || ch === '"';
+
+            if (isQuoteChar(firstChar) && firstChar === lastChar) {
+              // Only strip quotes when they form a matching pair
+              return trimmedTag.slice(1, -1);
+            }
+
+            // Leave malformed or unquoted tags unchanged
+            return trimmedTag;
+          })
           .filter(Boolean);
         break;
     }

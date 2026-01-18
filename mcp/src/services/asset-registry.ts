@@ -15,6 +15,9 @@ import { loadAssets } from "./asset-loader.js";
 /**
  * Asset registry that discovers and manages repository assets.
  * Assets are loaded once at initialization and stored in memory.
+ * 
+ * Use `createAssetRegistry()` to create an initialized instance.
+ * Direct instantiation requires calling `initialize()` before use.
  */
 export class AssetRegistry {
   private readonly repoRoot: string;
@@ -23,6 +26,16 @@ export class AssetRegistry {
 
   constructor(repoRoot: string) {
     this.repoRoot = repoRoot;
+  }
+
+  /**
+   * Ensure the registry is initialized before use.
+   * Throws an error if called before initialize().
+   */
+  private ensureInitialized(): void {
+    if (!this.initialized) {
+      throw new Error("AssetRegistry not initialized. Call initialize() first or use createAssetRegistry().");
+    }
   }
 
   /**
@@ -76,8 +89,11 @@ export class AssetRegistry {
 
   /**
    * List assets with optional filtering.
+   * @throws Error if registry is not initialized
    */
   listAssets(input: ListAssetsInput): ListAssetsOutput {
+    this.ensureInitialized();
+    
     let assets = Array.from(this.assets.values());
 
     // Filter by type if specified
@@ -107,8 +123,11 @@ export class AssetRegistry {
 
   /**
    * Get a single asset by ID.
+   * @throws Error if registry is not initialized
    */
   getAsset(input: GetAssetInput): GetAssetOutput | null {
+    this.ensureInitialized();
+    
     const asset = this.assets.get(input.id);
 
     if (!asset) {
@@ -130,8 +149,11 @@ export class AssetRegistry {
    * Search assets by keywords.
    * Matches against name, path, title, and description.
    * All keywords must match (AND logic).
+   * @throws Error if registry is not initialized
    */
   searchAssets(input: SearchAssetsInput): SearchAssetsOutput {
+    this.ensureInitialized();
+    
     const keywords = input.keywords.toLowerCase().split(/\s+/).filter(Boolean);
 
     if (keywords.length === 0) {

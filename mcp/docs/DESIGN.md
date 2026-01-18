@@ -211,9 +211,9 @@ Lists all repository assets with optional filtering.
 {
   "type": "object",
   "properties": {
-    "type": {
+"type": {
       "type": "string",
-"enum": ["prompt", "agent", "instruction", "skill"],
+      "enum": ["prompt", "agent", "instruction", "skill"],
       "description": "Filter by asset type"
     },
     "locale": {
@@ -331,9 +331,9 @@ Searches assets by keywords.
       "type": "string",
       "description": "Search keywords (space-separated)"
     },
-    "type": {
+"type": {
       "type": "string",
-"enum": ["prompt", "agent", "instruction", "skill"],
+      "enum": ["prompt", "agent", "instruction", "skill"],
       "description": "Filter by asset type"
     }
   },

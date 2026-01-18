@@ -45,7 +45,14 @@ const ASSET_PATTERNS: Record<AssetType, { dir: string; pattern: RegExp; recursiv
  * Convert Windows path separators to forward slashes for consistent IDs.
  */
 function toForwardSlashes(path: string): string {
-  return path.split("\\").join("/");
+  return path.replace(/\\/g, "/");
+}
+
+/**
+ * Check if an error is a "directory not found" error.
+ */
+function isNotFoundError(error: unknown): boolean {
+  return error instanceof Error && "code" in error && error.code === "ENOENT";
 }
 
 /**
@@ -59,13 +66,18 @@ async function findFilesRecursive(
   let entries: Dirent[];
   try {
     entries = await readdir(dir, { withFileTypes: true });
-  } catch {
-    // Directory doesn't exist or isn't readable
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      // Directory doesn't exist - this is expected for optional directories
+      return files;
+    }
+    // Log unexpected errors (permissions, I/O, etc.)
+    console.error(`Error reading directory ${dir}:`, error);
     return files;
   }
 
   for (const entry of entries) {
-    const entryName = String(entry.name);
+    const entryName = entry.name as string;
     const fullPath = join(dir, entryName);
     if (entry.isDirectory()) {
       await findFilesRecursive(fullPath, pattern, files);
@@ -86,13 +98,18 @@ async function findFilesFlat(dir: string, pattern: RegExp): Promise<string[]> {
   let entries: Dirent[];
   try {
     entries = await readdir(dir, { withFileTypes: true });
-  } catch {
-    // Directory doesn't exist or isn't readable
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      // Directory doesn't exist - this is expected for optional directories
+      return files;
+    }
+    // Log unexpected errors (permissions, I/O, etc.)
+    console.error(`Error reading directory ${dir}:`, error);
     return files;
   }
 
   for (const entry of entries) {
-    const entryName = String(entry.name);
+    const entryName = entry.name as string;
     if (entry.isFile() && pattern.test(entryName)) {
       files.push(join(dir, entryName));
     }
@@ -127,7 +144,7 @@ async function discoverAssetType(
  * Scans all known asset directories and returns discovered files.
  */
 export async function discoverAssets(repoRoot: string): Promise<DiscoveredFile[]> {
-  const assetTypes: AssetType[] = ["prompt", "agent", "instruction", "skill"];
+  const assetTypes = Object.keys(ASSET_PATTERNS) as AssetType[];
 
   const results = await Promise.all(
     assetTypes.map((type) => discoverAssetType(repoRoot, type))
