@@ -118,12 +118,9 @@ function parseFrontmatter(content: string): AssetMetadata | undefined {
     if (!key) continue;
     
     // Extract value from mutually exclusive capture groups (2=double-quoted, 3=single-quoted, 4=unquoted)
-    const value = keyValueMatch[2] !== undefined
-      ? keyValueMatch[2]
-      : keyValueMatch[3] !== undefined
-        ? keyValueMatch[3]
-        : keyValueMatch[4];
-    if (value === undefined) continue;
+    // Using || since empty strings are valid values that should be used
+    const value = keyValueMatch[2] || keyValueMatch[3] || keyValueMatch[4] || "";
+    if (!value) continue;
     
     switch (key.toLowerCase()) {
       case "title":

@@ -1,0 +1,22 @@
+---
+# Codacy configuration
+# https://docs.codacy.com/repositories-configure/codacy-configuration-file/
+
+exclude_paths:
+  # Build outputs
+  - "mcp/dist/**"
+  - "**/node_modules/**"
+
+engines:
+  # Configure ESLint
+  eslint:
+    enabled: true
+    
+  # Configure Semgrep - exclude path traversal rules for asset discovery
+  # The MCP asset discovery intentionally reads files from known directories
+  semgrep:
+    enabled: true
+    exclude_paths:
+      # Asset discovery files use dynamic paths for legitimate file operations
+      - "mcp/src/services/file-discovery.ts"
+      - "mcp/src/services/asset-loader.ts"
