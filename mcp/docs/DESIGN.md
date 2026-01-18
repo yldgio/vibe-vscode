@@ -70,9 +70,9 @@ Current repository assets to be exposed:
 | Prompts | 17 | `.github/prompts/` | `*.prompt.md` |
 | Agents | 5 | `.github/agents/` | `*.agent.md` |
 | Instructions | 8 | `.github/instructions/` | `*.instructions.md` |
-| Skills | 8 | `.github/skills/*/` | `SKILL.md` |
+| Skills | 7 | `.github/skills/*/` | `SKILL.md` |
 | Chat Modes | 5 | `.github/chatmodes/` | `*.chatmode.md` |
-| **Total** | **43** | | |
+| **Total** | **42** | | |
 
 ### Detailed Asset List
 
