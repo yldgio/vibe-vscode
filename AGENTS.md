@@ -3,6 +3,14 @@
 > This file provides guidelines for AI agents (GitHub Copilot, Claude, OpenCode, etc.) operating in this repository.
 > **Keep this file updated** when relevant changes occur (new tools, conventions, structure changes).
 
+## 📘 Progressive Disclosure Pattern
+
+This repository follows the **progressive disclosure pattern** for AI agent instructions. Core information is provided below, while detailed, task-specific guidance lives in referenced files.
+
+**For detailed information on this pattern and best practices, see:** [`.github/PROGRESSIVE_DISCLOSURE.md`](.github/PROGRESSIVE_DISCLOSURE.md)
+
+**Key principle:** Load only the context you need for the current task to maximize AI performance and context efficiency.
+
 ## Repository Overview
 
 This repository contains GitHub Copilot customizations: prompts, agents, instructions, skills, and chatmodes.
@@ -276,6 +284,9 @@ Update `AGENTS.md` when:
 
 ## Reference Links
 
+- [Progressive Disclosure Pattern](.github/PROGRESSIVE_DISCLOSURE.md) - Best practices for structuring AI agent context
 - [MCP Server Design](./mcp/docs/DESIGN.md) - Architecture and tool schemas
 - [Conventional Commits](https://www.conventionalcommits.org/) - Commit message format
 - [MCP Protocol](https://modelcontextprotocol.io/) - Model Context Protocol docs
+- [GitHub Copilot Instructions](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions) - Official Copilot docs
+- [Awesome Copilot](https://github.com/github/awesome-copilot) - Community prompt examples
