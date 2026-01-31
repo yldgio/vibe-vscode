@@ -393,7 +393,7 @@ This repository follows the progressive disclosure pattern:
    - Code style guidelines
    - Key file references
 
-2. **`.github/copilot-instructions.md`** (123 lines)
+2. **`.github/copilot-instructions.md`** (124 lines)
    - Response identity
    - Project context
    - Code generation guidelines
