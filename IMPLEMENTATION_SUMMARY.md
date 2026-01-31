@@ -117,7 +117,7 @@ Quick reference card with:
 |------|------|---------|
 | `.github/PROGRESSIVE_DISCLOSURE.md` | Created | Comprehensive guide (462 lines) |
 | `.github/README.md` | Created | Directory structure guide (225 lines) |
-| `.github/QUICK_REFERENCE.md` | Created | Quick reference card (120 lines) |
+| `.github/QUICK_REFERENCE.md` | Created | Quick reference card (119 lines) |
 | `AGENTS.md` | Modified | Added references to progressive disclosure |
 | `README.md` | Modified | Added AI agent best practices section |
 
