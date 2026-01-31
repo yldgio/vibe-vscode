@@ -39,7 +39,7 @@ Directory structure guide explaining:
 - Best practices for writing new instructions
 - Maintenance guidelines and checklists
 
-#### `.github/QUICK_REFERENCE.md` (120 lines)
+#### `.github/QUICK_REFERENCE.md` (119 lines)
 Quick reference card with:
 - Golden rules (4 key principles)
 - File roles table with line limits
