@@ -81,7 +81,7 @@ GitHub Copilot uses several types of files to provide context to the AI. Underst
 ## Tech Stack
 - React + TypeScript (strict mode)
 - TailwindCSS for styling
-- pnpm as package manager
+- npm as package manager
 
 ## Universal Rules
 - Always validate user inputs
