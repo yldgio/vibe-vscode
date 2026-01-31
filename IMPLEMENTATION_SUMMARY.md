@@ -16,7 +16,7 @@ Implement the principles from HumanLayer's guide on writing effective AI agent i
 
 ### 1. Core Documentation Created
 
-#### `.github/PROGRESSIVE_DISCLOSURE.md` (462 lines)
+#### `.github/PROGRESSIVE_DISCLOSURE.md` (~460 lines)
 A comprehensive guide covering:
 - **What is progressive disclosure?** - Pattern definition and rationale
 - **Why it matters** - Context window efficiency and performance impact
