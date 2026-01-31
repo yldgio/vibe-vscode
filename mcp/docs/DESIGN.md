@@ -15,6 +15,7 @@
 7. [Client Configuration](#client-configuration)
 8. [Project Structure](#project-structure)
 9. [Reference Implementation](#reference-implementation)
+10. [Implementation Status](#implementation-status)
 
 ---
 
@@ -576,6 +577,37 @@ This design is inspired by Microsoft's [awesome-copilot](https://github.com/micr
 | Data Source | Remote GitHub API | Local filesystem |
 | Asset Types | 4 (instructions, prompts, agents, skills) | 4 |
 | Caching | In-memory from JSON | In-memory from filesystem |
+
+---
+
+## Implementation Status
+
+### Phase 3: Asset Registry and Tools (Completed)
+
+**Status**: ✅ Implemented
+
+Phase 3 has been completed and merged. The implementation includes:
+
+- **Asset Registry Service** (`mcp/src/services/`)
+  - `asset-registry.ts` - Core asset discovery and management
+  - `asset-loader.ts` - File content loading and caching
+  - `file-discovery.ts` - Filesystem asset discovery
+  - `types.ts` - TypeScript type definitions
+
+- **MCP Tools** (`mcp/src/tools/`)
+  - `list-assets.ts` - List repository assets with filtering
+  - `get-asset.ts` - Retrieve specific asset content
+  - `search-assets.ts` - Search assets by keywords
+  - `index.ts` - Tool registration and exports
+
+The MCP server successfully exposes all repository assets (prompts, agents, instructions, skills) via the three core MCP tools as designed in this document.
+
+**Related Issues**:
+- Implemented in PR [#24](https://github.com/yldgio/vibe-vscode/pull/24)
+- Closes [#16](https://github.com/yldgio/vibe-vscode/issues/16) (File discovery service)
+- Closes [#17](https://github.com/yldgio/vibe-vscode/issues/17) (Asset loader + ID generation)
+- Closes [#18](https://github.com/yldgio/vibe-vscode/issues/18) (Asset registry implementation)
+- Closes [#19](https://github.com/yldgio/vibe-vscode/issues/19) (Connect tools to real registry + testing)
 
 ---
 
