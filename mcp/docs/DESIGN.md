@@ -595,9 +595,9 @@ Phase 3 has been completed and merged. The implementation includes:
   - `types.ts` - TypeScript type definitions
 
 - **MCP Tools** (`mcp/src/tools/`)
-  - `list_assets.ts` - List repository assets with filtering
-  - `get_asset.ts` - Retrieve specific asset content
-  - `search_assets.ts` - Search assets by keywords
+  - `list-assets.ts` - List repository assets with filtering
+  - `get-asset.ts` - Retrieve specific asset content
+  - `search-assets.ts` - Search assets by keywords
   - `index.ts` - Tool registration and exports
 
 The MCP server successfully exposes all repository assets (prompts, agents, instructions, skills) via the three core MCP tools as designed in this document.
