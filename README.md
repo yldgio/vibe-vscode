@@ -235,6 +235,11 @@ Questo template è progettato per essere esteso e migliorato:
 - **[GitHub Awesome Copilot Skills](https://github.com/github/awesome-copilot/tree/main/skills)** - Curated Copilot skills per Azure, monitoring e altro
 - **[Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)** - Skills per design, documentation e MCP builders
 
+### AI Agent Best Practices
+- **[Progressive Disclosure Pattern](.github/PROGRESSIVE_DISCLOSURE.md)** - Guide to structuring AI agent context effectively
+- **[GitHub Copilot Configuration](.github/README.md)** - How to use and maintain Copilot instructions
+- **[Writing a good CLAUDE.md](https://www.hlyr.dev/blog/writing-a-good-claude-md)** - HumanLayer blog on AI agent instructions
+
 ---
 
 ## 🌍 English Summary
