@@ -33,7 +33,7 @@ The progressive disclosure pattern (documented in `.github/PROGRESSIVE_DISCLOSUR
 ## Current State
 
 - `AGENTS.md`: 281 lines (target: ~60 lines)
-- `.github/copilot-instructions.md`: 123 lines (target: ~100 lines)
+- `.github/copilot-instructions.md`: 124 lines (target: ~100 lines)
 
 Much of the detailed content in these files could be moved to supplemental documentation while keeping references accessible.
 
