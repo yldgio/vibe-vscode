@@ -113,7 +113,7 @@ Pre-built skills for specific development tasks:
 ```
 Context Window:
 ┌─────────────────────────────────────────┐
-│ ✓ copilot-instructions.md (123 lines)  │ ← Always loaded
+│ ✓ copilot-instructions.md (124 lines)  │ ← Always loaded
 │ ✓ react-ts.instructions.md (90 lines)  │ ← Auto-loaded for .tsx
 │ ✓ Current file content                 │ ← File being edited
 │ ✓ Related files (if open)              │ ← Additional context
