@@ -10,6 +10,7 @@
 - [Best Practices](#best-practices)
 - [File Organization Structure](#file-organization-structure)
 - [Examples](#examples)
+- [How This Repository Implements Progressive Disclosure](#how-this-repository-implements-progressive-disclosure)
 - [References](#references)
 
 ---
